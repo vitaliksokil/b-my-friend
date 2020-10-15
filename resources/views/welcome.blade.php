@@ -1,99 +1,110 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+    <title>BMyFriend</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Piedra&display=swap" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{asset('/css/app.css')}}">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <div class="col-3">
+                <div class="logo">
+                    <a href="/">BMyFriend</a>
                 </div>
-            @endif
+            </div>
+            <div class="col-9">
+                <ul class="nav main-navigation justify-content-end">
+                    <li class="nav-item">Chats</li>
+                    <li class="nav-item">Groups</li>
+                    <li class="nav-item">Settings</li>
+                    <li class="nav-item">Logout</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel On Heroku !!!
+<section class="main">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="profile-image">
+                    <img src="https://www.meme-arsenal.com/memes/663d52e3d3a81d5630eb165d4e4216d4.jpg" alt="">
                 </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+            </div>
+            <div class="col-9">
+                <div class="profile-info">
+                    <div>
+                        <div class="user-name">
+                            <h2>Name Surname</h2>
+                        </div>
+                        <div class="user-status">
+                            <h4>Some status of the user</h4>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="user-followers">
+                            <ul class="nav">
+                                <li class="nav-item">Followers: <span>999</span></li>
+                                <li class="nav-item"><i class="fas fa-users"></i>Friends: <span>999</span></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</section>
+    <section class="blog">
+        <nav class="navbar navbar-dark bg-dark justify-content-center">
+            <div class="col-3  text-right pr-5" style="border-right: 1px solid white">
+                <div class="blog-item-menu-item">
+                    <h5>Pictures</h5>
+                </div>
+            </div>
+            <div class="col-3 pl-5">
+                <div class="blog-item-menu-item">
+                    <h5>Blog</h5>
+                </div>
+            </div>
+        </nav>
+
+        <div class="pictures">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="https://tulatrud.ru/wp-content/uploads/modnye-avatarki-dlya-vk_0.jpg" alt="">
+                </div>
+                <div class="col-lg-4">
+                    <img src="https://tulatrud.ru/wp-content/uploads/modnye-avatarki-dlya-vk_0.jpg" alt="">
+                </div>
+                <div class="col-lg-4">
+                    <img src="https://tulatrud.ru/wp-content/uploads/modnye-avatarki-dlya-vk_0.jpg" alt="">
+                </div>
+                <div class="col-lg-4">
+                    <img src="https://tulatrud.ru/wp-content/uploads/modnye-avatarki-dlya-vk_0.jpg" alt="">
+                </div>
+                <div class="col-lg-4">
+                    <img src="https://tulatrud.ru/wp-content/uploads/modnye-avatarki-dlya-vk_0.jpg" alt="">
+                </div>
+                <div class="col-lg-4">
+                    <img src="https://tulatrud.ru/wp-content/uploads/modnye-avatarki-dlya-vk_0.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
 </html>
