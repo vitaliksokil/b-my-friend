@@ -6,3 +6,80 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+header{
+    .main-navigation{
+        li{
+            margin-right: 30px;
+            font-weight: bold;
+            font-size: 20px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+    }
+}
+.logo{
+    a{
+        font-family: 'Piedra', cursive;
+        font-size: 30px;
+        font-weight: bold;
+        color: #ffffff;
+        -webkit-text-stroke: 1px black;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
+.main{
+    padding: 50px 0 50px 0;
+    background: #ecf5fb;
+    .profile-image{
+        img{
+            border-radius: 50%;
+            width: 100%;
+        }
+    }
+    .profile-info{
+        height: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .user-name{
+            h2{
+                font-weight: bold;
+                font-size: 50px;
+            }
+        }
+        .user-followers{
+            display: flex;
+            justify-content: center;
+            ul{
+                justify-content: space-between;
+                li{
+                    margin-left: 20px;
+                    font-size: 28px;
+                    span{
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}
+.blog{
+    .blog-item-menu-item{
+        h5{
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+    .pictures{
+        img{
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+}
