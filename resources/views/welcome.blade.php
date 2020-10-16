@@ -48,7 +48,7 @@
                 <div class="profile-info">
                     <div>
                         <div class="user-name">
-                            <h2>Name Surname</h2>
+                            <h2>Name Surname asdasdasdasd</h2>
                         </div>
                         <div class="user-status">
                             <h4>Some status of the user</h4>
