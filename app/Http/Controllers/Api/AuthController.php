@@ -20,7 +20,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/register",
+     * path="/api/auth/register",
      * summary="Sign up",
      * description="Register by name, email, password",
      * operationId="authRegister",
@@ -62,7 +62,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/login",
+     * path="/api/auth/login",
      * summary="Sign in",
      * description="Login by email, password",
      * operationId="authLogin",
