@@ -5,19 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
-
     /**
      * @OA\Post(
      * path="/api/auth/register",
@@ -39,25 +31,47 @@ class AuthController extends Controller
      * @OA\Response(
      *    response=200,
      *    description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="user", type="object", example={
+    "id": 1,
+    "name":"test",
+    "email": "testt@gmail.com",
+    "email_verified_at": null,
+    })
+     *        )
+     *     ),
+     *
+     * @OA\Response(
+     *    response=500,
+     *    description="Error",
      *    @OA\JsonContent(
-     *       @OA\Property(property="user", type="object", example="{id: 1, name:test ,email: testt@gmail.com,email_verified_at: null,created_at: 2020-10-26 21:39:35,updated_at: 2020-10-26 21:39:35}")
+     *       @OA\Property(property="password", type="object", example={
+    "The password must be at least 6 characters."
+    })
      *        )
      *     )
      * )
      */
     public function register(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        return response()->json(['user' => $user]);
+        if ($validator->fails()) {
+            return new Response($validator->errors(), 500);
+        }
+        try {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return new Response(['user' => $user], 200);
+        }catch (\Exception $exception){
+            return new Response(['email'=>['User with this email already exists']], 500);
+        }
     }
 
     /**
@@ -74,9 +88,24 @@ class AuthController extends Controller
      *       required={"email","password"},
      *       @OA\Property(property="email", type="string", format="email", example="user1@mail.com"),
      *       @OA\Property(property="password", type="string", format="password", example="PassWord12345"),
-     *       @OA\Property(property="persistent", type="boolean", example="true"),
      *    ),
      * ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="access_token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iLW15LWZyaWVuZC5sb2NcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MDQwMDIxOTcsImV4cCI6MTYwNDAwNTc5NywibmJmIjoxNjA0MDAyMTk3LCJqdGkiOiJyb2RINmdBVklOMU9OSk5TIiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.O-uXG80fluNYYTWkK5-jCMZV74LPjd8_hi0V4RAzTrg"),
+     *              @OA\Property(property="user", type="object", example={
+    "id": 1,
+    "name": "test",
+    "email": "testt@gmail.com",
+    "email_verified_at": null
+     *             }),
+     *             @OA\Property(property="token_type", type="string", example="bearer"),
+     *             @OA\Property(property="expires_in", type="int", example=3600),
+     *          )
+     *      ),
+     *
      * @OA\Response(
      *    response=422,
      *    description="Wrong credentials response",
@@ -90,36 +119,86 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
         if (!$token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return new Response(['error' => "Sorry, wrong email address or password. Please try again"], 422);
         }
         return $this->respondWithToken($token);
     }
 
     /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *      path="/api/auth/me",
+     *      summary="Testing token",
+     *      description="Requires 'Authorization' header with bearer token",
+     *      operationId="authMe",
+     *      tags={"auth"},
+     *      security={ {"bearer": {}} },
+     *      @OA\Response(
+     *          response=200,
+     *          description="Returns auth user",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="user", type="object", example={
+                    "id": 1,
+                    "name": "test",
+                    "email": "testt@gmail.com",
+                    "email_verified_at": null
+     *             }),
+     *          )
+     *        )
+     *    )
      */
     public function me()
     {
-        return response()->json(auth('api')->user());
+        return response()->json(['user'=>auth('api')->user()]);
     }
 
+
     /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     * path="/api/auth/logout",
+     * summary="Logout",
+     * description="Logout",
+     * operationId="authLogout",
+     * tags={"auth"},
+     * security={ {"bearer": {}} },
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *              @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully logged out"),
+     *          )
+     *      ),
+     *)
      */
     public function logout()
     {
         auth('api')->logout();
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'Successfully logged out'],200);
     }
 
     /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     * path="/api/auth/refresh",
+     * summary="Refresh token",
+     * description="Refresh token",
+     * operationId="authRefresh",
+     * tags={"auth"},
+     * security={ {"bearer": {}} },
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *              @OA\JsonContent(
+     *              @OA\Property(property="access_token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iLW15LWZyaWVuZC5sb2NcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MDQwMDIxOTcsImV4cCI6MTYwNDAwNTc5NywibmJmIjoxNjA0MDAyMTk3LCJqdGkiOiJyb2RINmdBVklOMU9OSk5TIiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.O-uXG80fluNYYTWkK5-jCMZV74LPjd8_hi0V4RAzTrg"),
+     *              @OA\Property(property="user", type="object", example={
+    "id": 1,
+    "name": "test",
+    "email": "testt@gmail.com",
+    "email_verified_at": null
+     *             }),
+     *             @OA\Property(property="token_type", type="string", example="bearer"),
+     *             @OA\Property(property="expires_in", type="int", example=3600),
+     *          )
+     *      ),
+     *)
      */
     public function refresh()
     {
