@@ -55,7 +55,30 @@
                                     "properties": {
                                         "user": {
                                             "type": "object",
-                                            "example": "{id: 1, name:test ,email: testt@gmail.com,email_verified_at: null,created_at: 2020-10-26 21:39:35,updated_at: 2020-10-26 21:39:35}"
+                                            "example": {
+                                                "id": 1,
+                                                "name": "test",
+                                                "email": "testt@gmail.com",
+                                                "email_verified_at": null
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "password": {
+                                            "type": "object",
+                                            "example": [
+                                                "The password must be at least 6 characters."
+                                            ]
                                         }
                                     },
                                     "type": "object"
@@ -94,10 +117,6 @@
                                         "type": "string",
                                         "format": "password",
                                         "example": "PassWord12345"
-                                    },
-                                    "persistent": {
-                                        "type": "boolean",
-                                        "example": "true"
                                     }
                                 },
                                 "type": "object"
@@ -106,6 +125,39 @@
                     }
                 },
                 "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iLW15LWZyaWVuZC5sb2NcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MDQwMDIxOTcsImV4cCI6MTYwNDAwNTc5NywibmJmIjoxNjA0MDAyMTk3LCJqdGkiOiJyb2RINmdBVklOMU9OSk5TIiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.O-uXG80fluNYYTWkK5-jCMZV74LPjd8_hi0V4RAzTrg"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "name": "test",
+                                                "email": "testt@gmail.com",
+                                                "email_verified_at": null
+                                            }
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "int",
+                                            "example": 3600
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "422": {
                         "description": "Wrong credentials response",
                         "content": {
@@ -123,6 +175,138 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/auth/me": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Testing token",
+                "description": "Requires 'Authorization' header with bearer token",
+                "operationId": "authMe",
+                "responses": {
+                    "200": {
+                        "description": "Returns auth user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "name": "test",
+                                                "email": "testt@gmail.com",
+                                                "email_verified_at": null
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Logout",
+                "description": "Logout",
+                "operationId": "authLogout",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/refresh": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Refresh token",
+                "description": "Refresh token",
+                "operationId": "authRefresh",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iLW15LWZyaWVuZC5sb2NcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MDQwMDIxOTcsImV4cCI6MTYwNDAwNTc5NywibmJmIjoxNjA0MDAyMTk3LCJqdGkiOiJyb2RINmdBVklOMU9OSk5TIiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.O-uXG80fluNYYTWkK5-jCMZV74LPjd8_hi0V4RAzTrg"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "name": "test",
+                                                "email": "testt@gmail.com",
+                                                "email_verified_at": null
+                                            }
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "int",
+                                            "example": 3600
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "type": "http",
+                "description": "Authorization token obtained from logging in.",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "bearer"
             }
         }
     }
