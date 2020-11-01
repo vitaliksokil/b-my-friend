@@ -42,7 +42,7 @@ class AuthController extends Controller
      *     ),
      *
      * @OA\Response(
-     *    response=500,
+     *    response=400,
      *    description="Error",
      *    @OA\JsonContent(
      *       @OA\Property(property="password", type="object", example={
@@ -60,7 +60,7 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
         if ($validator->fails()) {
-            return new Response($validator->errors(), 500);
+            return new Response($validator->errors(), 400);
         }
         try {
             $user = new User();
@@ -70,7 +70,7 @@ class AuthController extends Controller
             $user->save();
             return new Response(['user' => $user], 200);
         }catch (\Exception $exception){
-            return new Response(['email'=>['User with this email already exists']], 500);
+            return new Response(['email'=>['User with this email already exists']], 400);
         }
     }
 
@@ -143,7 +143,15 @@ class AuthController extends Controller
                     "email_verified_at": null
      *             }),
      *          )
-     *        )
+     *        ),
+     *     @OA\Response(
+     *          response=403,
+     *          description="Error. Forbidden",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="object", example="Unauthenticated"),
+     *          )
+     *        ),
+     *
      *    )
      */
     public function me()
@@ -167,6 +175,13 @@ class AuthController extends Controller
      *              @OA\Property(property="message", type="string", example="Successfully logged out"),
      *          )
      *      ),
+     *     @OA\Response(
+     *          response=403,
+     *          description="Error. Forbidden",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="object", example="Unauthenticated"),
+     *          )
+     *        ),
      *)
      */
     public function logout()
@@ -198,6 +213,13 @@ class AuthController extends Controller
      *             @OA\Property(property="expires_in", type="int", example=3600),
      *          )
      *      ),
+     *     @OA\Response(
+     *          response=403,
+     *          description="Error. Forbidden",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="object", example="Unauthenticated"),
+     *          )
+     *        ),
      *)
      */
     public function refresh()
