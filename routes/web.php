@@ -12,6 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('profile.profile');
 });
-//Route::get('/login');
+
+Route::get('/email/verify/{token}/{user_id}', 'Api\EmailVerificationController@emailVerification');
