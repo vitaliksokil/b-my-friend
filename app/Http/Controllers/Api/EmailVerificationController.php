@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\SendEmailVerificationEvent;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -56,11 +57,7 @@ class EmailVerificationController extends Controller
         ];
         if(!isset($user->email_verified_at)) {
             try {
-                Mail::send('emails.emailVerification', $data, function ($message) use ($to_name, $to_email) {
-                    $message->to($to_email, $to_name)
-                        ->subject('b-my-friend Email Verification');
-                    $message->from(env('MAIL_USERNAME'), 'b-my-friend');
-                });
+                event(new SendEmailVerificationEvent($data,$to_name,$to_email));
                 $user->email_verification_token = $token;
                 if ($user->save()) {
                     return new Response(['message' => 'Email verification was successfully sent on ' . $to_email], 200);
@@ -68,7 +65,7 @@ class EmailVerificationController extends Controller
                     return new Response(['message' => 'Something went wrong'], 500);
                 }
             } catch (\Exception $exception) {
-                return new Response(['message' => 'Something went wrong when sending email'], 500);
+                return new Response(['message' => $exception->getMessage()], 500);
             }
         }else{
             return new Response(['message' => 'Something went wrong! Your email has been already confirmed!'], 400);
