@@ -102,7 +102,6 @@ class AuthController extends Controller
     "email_verified_at": null
      *             }),
      *             @OA\Property(property="token_type", type="string", example="bearer"),
-     *             @OA\Property(property="expires_in", type="int", example=3600),
      *          )
      *      ),
      *
@@ -191,43 +190,6 @@ class AuthController extends Controller
     }
 
     /**
-     * @OA\Post(
-     * path="/api/auth/refresh",
-     * summary="Refresh token",
-     * description="Refresh token",
-     * operationId="authRefresh",
-     * tags={"auth"},
-     * security={ {"bearer": {}} },
-     *     @OA\Response(
-     *          response=200,
-     *          description="Success",
-     *              @OA\JsonContent(
-     *              @OA\Property(property="access_token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iLW15LWZyaWVuZC5sb2NcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MDQwMDIxOTcsImV4cCI6MTYwNDAwNTc5NywibmJmIjoxNjA0MDAyMTk3LCJqdGkiOiJyb2RINmdBVklOMU9OSk5TIiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.O-uXG80fluNYYTWkK5-jCMZV74LPjd8_hi0V4RAzTrg"),
-     *              @OA\Property(property="user", type="object", example={
-    "id": 1,
-    "name": "test",
-    "email": "testt@gmail.com",
-    "email_verified_at": null
-     *             }),
-     *             @OA\Property(property="token_type", type="string", example="bearer"),
-     *             @OA\Property(property="expires_in", type="int", example=3600),
-     *          )
-     *      ),
-     *     @OA\Response(
-     *          response=403,
-     *          description="Error. Forbidden",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="object", example="Unauthenticated"),
-     *          )
-     *        ),
-     *)
-     */
-    public function refresh()
-    {
-        return $this->respondWithToken(auth('api')->refresh());
-    }
-
-    /**
      * Get the token array structure.
      *
      * @param string $token
@@ -239,8 +201,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'user' => $this->guard()->user(),
-            'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
+            'token_type' => 'bearer'
         ]);
     }
 

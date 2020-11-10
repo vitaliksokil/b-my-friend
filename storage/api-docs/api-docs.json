@@ -147,10 +147,6 @@
                                         "token_type": {
                                             "type": "string",
                                             "example": "bearer"
-                                        },
-                                        "expires_in": {
-                                            "type": "int",
-                                            "example": 3600
                                         }
                                     },
                                     "type": "object"
@@ -249,72 +245,6 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Successfully logged out"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Error. Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "object",
-                                            "example": "Unauthenticated"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
-            }
-        },
-        "/api/auth/refresh": {
-            "post": {
-                "tags": [
-                    "auth"
-                ],
-                "summary": "Refresh token",
-                "description": "Refresh token",
-                "operationId": "authRefresh",
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "access_token": {
-                                            "type": "string",
-                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iLW15LWZyaWVuZC5sb2NcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MDQwMDIxOTcsImV4cCI6MTYwNDAwNTc5NywibmJmIjoxNjA0MDAyMTk3LCJqdGkiOiJyb2RINmdBVklOMU9OSk5TIiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.O-uXG80fluNYYTWkK5-jCMZV74LPjd8_hi0V4RAzTrg"
-                                        },
-                                        "user": {
-                                            "type": "object",
-                                            "example": {
-                                                "id": 1,
-                                                "name": "test",
-                                                "email": "testt@gmail.com",
-                                                "email_verified_at": null
-                                            }
-                                        },
-                                        "token_type": {
-                                            "type": "string",
-                                            "example": "bearer"
-                                        },
-                                        "expires_in": {
-                                            "type": "int",
-                                            "example": 3600
                                         }
                                     },
                                     "type": "object"
