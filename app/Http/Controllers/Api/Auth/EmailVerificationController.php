@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Events\SendEmailVerificationEvent;
+use App\Services\EmailService\EmailServiceInterface;
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class EmailVerificationController extends Controller
@@ -48,7 +47,6 @@ class EmailVerificationController extends Controller
     public function sendEmailVerification()
     {
         $user = auth()->user();
-        $to_name = $user->name;
         $to_email = $user->email;
         $token = Str::random(30);
         $data = [
@@ -57,7 +55,10 @@ class EmailVerificationController extends Controller
         ];
         if(!isset($user->email_verified_at)) {
             try {
-                event(new SendEmailVerificationEvent($data,$to_name,$to_email));
+                /** @var EmailServiceInterface $emailService */
+                $emailService = app()->make(EmailServiceInterface::class);
+                $emailService->send('emails.email-verification.emailVerification','Email Verification',$data,$to_email);
+
                 $user->email_verification_token = $token;
                 if ($user->save()) {
                     return new Response(['message' => 'Email verification was successfully sent on ' . $to_email], 200);
@@ -80,7 +81,7 @@ class EmailVerificationController extends Controller
             $user->email_verification_token = null;
             $user->email_verified_at = new \DateTime('now');
             if($user->save()){
-                return view('emails.messageWithVerified', [
+                return view('emails.email-verification.messageWithVerified', [
                         'success' => 'Successfully verified'
                 ]);
             }else{

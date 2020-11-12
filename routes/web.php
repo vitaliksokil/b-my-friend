@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('profile.profile');
 });
 
-Route::get('/email/verify/{token}/{user_id}', 'Api\EmailVerificationController@emailVerification');
+Route::get('/email/verify/{token}/{user_id}', 'Api\Auth\EmailVerificationController@emailVerification');
+Route::get('/password/reset/{token}/{email}', 'Api\Auth\PasswordResetController@passwordReset');
+Route::post('/change/password', 'Api\Auth\PasswordResetController@changePassword')->name('change-password');

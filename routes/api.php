@@ -15,18 +15,26 @@ use Illuminate\Http\Request;
 
 Route::group(['namespace'=>'Api'], function ($router) {
 
-    Route::group(['prefix'=>'auth'],function (){
-        Route::post('register', 'AuthController@register');
-        Route::post('login', 'AuthController@login');
+    Route::group(['namespace'=>'Auth'], function ($router) {
+        Route::group(['prefix'=>'auth'],function (){
+            Route::post('register', 'AuthController@register');
+            Route::post('login', 'AuthController@login');
+            Route::post('reset-password', 'PasswordResetController@resetPassword');
+            Route::post('android/reset-password', 'PasswordResetController@androidResetPassword');
+            Route::post('android/reset-code-check', 'PasswordResetController@androidResetCodeCheck');
+            Route::post('android/password-change', 'PasswordResetController@androidChangePassword');
 
-        Route::group(['middleware' => 'auth:api'],function (){
-            Route::post('logout', 'AuthController@logout');
-            Route::post('refresh', 'AuthController@refresh');
-            Route::post('me', 'AuthController@me');
+            Route::group(['middleware' => 'auth:api'],function (){
+                Route::post('logout', 'AuthController@logout');
+                Route::post('refresh', 'AuthController@refresh');
+                Route::post('me', 'AuthController@me');
+            });
+        });
+        Route::group(['prefix'=>'email','middleware' => 'auth:api'],function (){
+            Route::post('/send-verification', 'EmailVerificationController@sendEmailVerification');
         });
     });
-    Route::group(['prefix'=>'email','middleware' => 'auth:api'],function (){
-        Route::post('/send-verification', 'EmailVerificationController@sendEmailVerification');
-    });
+
+
 });
 

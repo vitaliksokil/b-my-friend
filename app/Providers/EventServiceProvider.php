@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\SendEmailVerificationEvent;
+use App\Events\SendPasswordResetEmailEvent;
 use App\Listeners\EmailVerificationListener;
+use App\Listeners\SendPasswordResetEmailListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -19,9 +21,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-        ],
-        SendEmailVerificationEvent::class => [
-            EmailVerificationListener::class,
         ],
     ];
 
