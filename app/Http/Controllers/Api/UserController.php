@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class UserController extends Controller
 {
     /**
-     * @OA\Post(
+     * @OA\Get(
      * path="/api/users/get-all?page={page}",
      * summary="Get all users",
      * description="Returns pagination object with all users.

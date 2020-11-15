@@ -656,7 +656,7 @@
             }
         },
         "/api/followers/get-all?page={page}": {
-            "post": {
+            "get": {
                 "tags": [
                     "followers"
                 ],
@@ -753,7 +753,7 @@
             }
         },
         "/api/followers/count-all": {
-            "post": {
+            "get": {
                 "tags": [
                     "followers"
                 ],
@@ -786,7 +786,7 @@
             }
         },
         "/api/following/get-all?page={page}": {
-            "post": {
+            "get": {
                 "tags": [
                     "following"
                 ],
@@ -883,7 +883,7 @@
             }
         },
         "/api/following/count-all": {
-            "post": {
+            "get": {
                 "tags": [
                     "following"
                 ],
@@ -1064,7 +1064,7 @@
             }
         },
         "/api/users/get-all?page={page}": {
-            "post": {
+            "get": {
                 "tags": [
                     "users"
                 ],
