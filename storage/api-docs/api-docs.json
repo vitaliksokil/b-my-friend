@@ -654,6 +654,511 @@
                     }
                 }
             }
+        },
+        "/api/followers/get-all?page={page}": {
+            "post": {
+                "tags": [
+                    "followers"
+                ],
+                "summary": "Get all followers",
+                "description": "Returns pagination object with all followers.\n    There are fields: <br>\n    -current_page - current page that requested; <br>\n    - data - array with users <br>\n    - first_page_url - url that should be requested to get data of first page (WARNING : this should be POST <br>\n    request with get parameter 'page' !!!! ) <br>\n    - from - from which record we get next part of data <br>\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page) <br>\n    - per_page - number of records per page ( always will be 20) <br>\n    - last_page_url - page that was called before ( this is not previous page) <br>\n    - next_page_url - url for next page ( WARNING: this should be POST request with get parameter 'page'!!!) <br>\n    - prev_page_url - url for previous page (WARNING: this should be POST request with get parameter 'page'!!!) <br>\n    - total - total count of all records <br>\n    ",
+                "operationId": "followersGetAll",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 2,
+                                                    "name": "Name",
+                                                    "email": "test@gmail.com",
+                                                    "email_verified_at": "2020-11-11 22:04:31",
+                                                    "email_verification_token": null
+                                                }
+                                            ]
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/followers/count-all": {
+            "post": {
+                "tags": [
+                    "followers"
+                ],
+                "summary": "Get count of followers",
+                "description": "Returns count of user's followers",
+                "operationId": "followersGetCountAll",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/following/get-all?page={page}": {
+            "post": {
+                "tags": [
+                    "following"
+                ],
+                "summary": "Get all following",
+                "description": "Returns pagination object with all following.\n    There are fields: <br>\n    -current_page - current page that requested; <br>\n    - data - array with users <br>\n    - first_page_url - url that should be requested to get data of first page (WARNING : this should be POST <br>\n    request with get parameter 'page' !!!! ) <br>\n    - from - from which record we get next part of data <br>\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page) <br>\n    - per_page - number of records per page ( always will be 20) <br>\n    - last_page_url - page that was called before ( this is not previous page) <br>\n    - next_page_url - url for next page ( WARNING: this should be POST request with get parameter 'page'!!!) <br>\n    - prev_page_url - url for previous page (WARNING: this should be POST request with get parameter 'page'!!!) <br>\n    - total - total count of all records <br>\n    ",
+                "operationId": "followingGetAll",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 2,
+                                                    "name": "Name",
+                                                    "email": "test@gmail.com",
+                                                    "email_verified_at": "2020-11-11 22:04:31",
+                                                    "email_verification_token": null
+                                                }
+                                            ]
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/following/get-all?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/following/get-all?page=2"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/following/get-all?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/following/get-all"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/following/get-all?page=2"
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/following/count-all": {
+            "post": {
+                "tags": [
+                    "following"
+                ],
+                "summary": "Get count of following",
+                "description": "Returns count of user's following",
+                "operationId": "followingGetCountAll",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/following/follow": {
+            "post": {
+                "tags": [
+                    "following"
+                ],
+                "summary": "Follow to some user",
+                "description": "Follow to some user",
+                "operationId": "followingFollow",
+                "requestBody": {
+                    "description": "Pass user id",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "Successfully followed Name"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Incorrect user id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/following/unfollow": {
+            "post": {
+                "tags": [
+                    "following"
+                ],
+                "summary": "Unfollow from one user",
+                "description": "Unfollow from one user",
+                "operationId": "followingUnfollow",
+                "requestBody": {
+                    "description": "Pass user id",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "Successfully unfollowed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Something went wrong!!!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Incorrect user id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users/get-all?page={page}": {
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get all users",
+                "description": "Returns pagination object with all users.\n           There are fields: <br>\n          -current_page - current page that requested; <br>\n          - data - array with users <br>\n          - first_page_url - url that should be requested to get data of first page (WARNING : this should be POST <br>\n          request with get parameter 'page' !!!! ) <br>\n           - from - from which record we get next part of data <br>\n           - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page) <br>\n           - per_page - number of records per page ( always will be 20) <br>\n           - last_page_url - page that was called before ( this is not previous page) <br>\n           - next_page_url - url for next page ( WARNING: this should be POST request with get parameter 'page'!!!) <br>\n           - prev_page_url - url for previous page (WARNING: this should be POST request with get parameter 'page'!!!) <br>\n           - total - total count of all records <br>\n         ",
+                "operationId": "usersGetAll",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 2,
+                                                    "name": "Name",
+                                                    "email": "test@gmail.com",
+                                                    "email_verified_at": "2020-11-11 22:04:31",
+                                                    "email_verification_token": null
+                                                }
+                                            ]
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/users/get-all?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/users/get-all?page=2"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/users/get-all?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/users/get-all"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/users/get-all?page=2"
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
