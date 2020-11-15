@@ -28,13 +28,28 @@ Route::group(['namespace'=>'Api'], function ($router) {
                 Route::post('logout', 'AuthController@logout');
                 Route::post('refresh', 'AuthController@refresh');
                 Route::post('me', 'AuthController@me');
+
+                Route::group(['prefix'=>'email'],function (){
+                    Route::post('/send-verification', 'EmailVerificationController@sendEmailVerification');
+                });
             });
-        });
-        Route::group(['prefix'=>'email','middleware' => 'auth:api'],function (){
-            Route::post('/send-verification', 'EmailVerificationController@sendEmailVerification');
         });
     });
 
+    Route::group(['prefix'=>'users','middleware' => 'auth:api'],function (){
+        Route::post('/get-all', 'UserController@getAllUsers');
+    });
+
+    Route::group(['prefix'=>'followers','middleware' => 'auth:api'],function (){
+        Route::post('/get-all', 'FollowerController@getAllFollowers');
+        Route::post('/count-all', 'FollowerController@getAllFollowersCount');
+    });
+    Route::group(['prefix'=>'following','middleware' => 'auth:api'],function (){
+        Route::post('/get-all', 'FollowerController@getAllFollowing');
+        Route::post('/count-all', 'FollowerController@getAllFollowingCount');
+        Route::post('/follow', 'FollowerController@follow');
+        Route::post('/unfollow', 'FollowerController@unFollow');
+    });
 
 });
 
