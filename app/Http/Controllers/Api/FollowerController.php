@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class FollowerController extends Controller
 {
     /**
-     * @OA\Post(
+     * @OA\Get(
      * path="/api/followers/get-all?page={page}",
      * summary="Get all followers",
      * description="Returns pagination object with all followers.
@@ -78,7 +78,7 @@ class FollowerController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Get(
      * path="/api/followers/count-all",
      * summary="Get count of followers",
      * description="Returns count of user's followers",
@@ -102,7 +102,7 @@ class FollowerController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Get(
      * path="/api/following/get-all?page={page}",
      * summary="Get all following",
      * description="Returns pagination object with all following.
@@ -167,7 +167,7 @@ class FollowerController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Get(
      * path="/api/following/count-all",
      * summary="Get count of following",
      * description="Returns count of user's following",
