@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     /**
      * @OA\Get(
-     * path="/api/users/get-all?page={page}",
+     * path="/api/users?page={page}",
      * summary="Get all users",
      * description="Returns pagination object with all users.
            There are fields: <br>
