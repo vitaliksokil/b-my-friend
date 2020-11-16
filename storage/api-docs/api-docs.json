@@ -655,7 +655,7 @@
                 }
             }
         },
-        "/api/followers/get-all?page={page}": {
+        "/api/followers?page={page}": {
             "get": {
                 "tags": [
                     "followers"
@@ -785,7 +785,7 @@
                 ]
             }
         },
-        "/api/following/get-all?page={page}": {
+        "/api/following?page={page}": {
             "get": {
                 "tags": [
                     "following"
@@ -915,7 +915,7 @@
                 ]
             }
         },
-        "/api/following/follow": {
+        "/api/following": {
             "post": {
                 "tags": [
                     "following"
@@ -981,31 +981,26 @@
                 ]
             }
         },
-        "/api/following/unfollow": {
-            "post": {
+        "/api/following/{user_id}": {
+            "delete": {
                 "tags": [
                     "following"
                 ],
                 "summary": "Unfollow from one user",
                 "description": "Unfollow from one user",
                 "operationId": "followingUnfollow",
-                "requestBody": {
-                    "description": "Pass user id",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "user_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id from which you are unfollowing",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -1063,7 +1058,7 @@
                 ]
             }
         },
-        "/api/users/get-all?page={page}": {
+        "/api/users?page={page}": {
             "get": {
                 "tags": [
                     "users"

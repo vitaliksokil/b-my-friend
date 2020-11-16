@@ -14,7 +14,7 @@ class FollowerController extends Controller
 {
     /**
      * @OA\Get(
-     * path="/api/followers/get-all?page={page}",
+     * path="/api/followers?page={page}",
      * summary="Get all followers",
      * description="Returns pagination object with all followers.
     There are fields: <br>
@@ -103,7 +103,7 @@ class FollowerController extends Controller
 
     /**
      * @OA\Get(
-     * path="/api/following/get-all?page={page}",
+     * path="/api/following?page={page}",
      * summary="Get all following",
      * description="Returns pagination object with all following.
     There are fields: <br>
@@ -193,7 +193,7 @@ class FollowerController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/following/follow",
+     * path="/api/following",
      * summary="Follow to some user",
      * description="Follow to some user",
      * operationId="followingFollow",
@@ -251,19 +251,22 @@ class FollowerController extends Controller
     }
 
     /**
-     * @OA\Post(
-     * path="/api/following/unfollow",
+     * @OA\Delete(
+     * path="/api/following/{user_id}",
      * summary="Unfollow from one user",
      * description="Unfollow from one user",
      * operationId="followingUnfollow",
      * tags={"following"},
      * security={ {"bearer": {}} },
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Pass user id",
-     *    @OA\JsonContent(
-     *        @OA\Property(property="user_id", type="integer",  example=1),
-     *    ),
+     * @OA\Parameter(
+     *          name="user_id",
+     *          in="path",
+     *          description="User id from which you are unfollowing",
+     *          example=1,
+     *        @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *      )
      * ),
     @OA\Response(
      *    response=200,
@@ -294,16 +297,10 @@ class FollowerController extends Controller
      *
      * )
      */
-    public function unFollow(Request $request){
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer'
-        ]);
-        if ($validator->fails()) {
-            return new Response($validator->errors(), 400);
-        }
-        $follower = auth()->user();
-        $following = User::find($request->user_id);
+    public function unFollow($user_id){
 
+        $follower = auth()->user();
+        $following = User::find($user_id);
         $followerRow = Follower::where([
             ['follower_id',$follower->id],
             ['following_id',$following->id]
