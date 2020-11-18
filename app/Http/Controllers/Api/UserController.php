@@ -70,6 +70,6 @@ class UserController extends Controller
      * )
      */
     public function getAllUsers(){
-        return User::paginate(20);
+        return User::where('id', '!=', auth()->id())->paginate(20);
     }
 }
