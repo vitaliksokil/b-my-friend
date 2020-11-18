@@ -74,7 +74,11 @@ class FollowerController extends Controller
      * )
      */
     public function getAllFollowers(){
-        return auth()->user()->followers()->paginate(20);
+        $user = auth()->user();
+        $paginationObj = $user->followers()->paginate(20);
+        $follower = $paginationObj->pluck('follower');
+        $paginationObj->setCollection($follower);
+        return $paginationObj;
     }
 
     /**
@@ -163,7 +167,11 @@ class FollowerController extends Controller
      * )
      */
     public function getAllFollowing(){
-        return auth()->user()->following()->paginate(20);
+        $user = auth()->user();
+        $paginationObj = $user->following()->paginate(20);
+        $following = $paginationObj->pluck('following');
+        $paginationObj->setCollection($following);
+        return $paginationObj;
     }
 
     /**
@@ -235,7 +243,7 @@ class FollowerController extends Controller
         }
         $follower = auth()->user();
         $following = User::find($request->user_id);
-        if($following instanceof User){
+        if($following instanceof User && $follower->id != $following->id){
             try {
                 $newFollower =  new Follower();
                 $newFollower->follower_id = $follower->id;
@@ -268,7 +276,7 @@ class FollowerController extends Controller
      *           format="int64"
      *      )
      * ),
-    @OA\Response(
+        @OA\Response(
      *    response=200,
      *    description="Success",
      *     @OA\JsonContent(
