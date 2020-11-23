@@ -20,14 +20,13 @@ class FollowerController extends Controller
     There are fields: <br>
     -current_page - current page that requested; <br>
     - data - array with users <br>
-    - first_page_url - url that should be requested to get data of first page (WARNING : this should be POST <br>
-    request with get parameter 'page' !!!! ) <br>
+    - first_page_url - url that should be requested to get data of first page (
     - from - from which record we get next part of data <br>
     - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page) <br>
     - per_page - number of records per page ( always will be 20) <br>
     - last_page_url - page that was called before ( this is not previous page) <br>
-    - next_page_url - url for next page ( WARNING: this should be POST request with get parameter 'page'!!!) <br>
-    - prev_page_url - url for previous page (WARNING: this should be POST request with get parameter 'page'!!!) <br>
+    - next_page_url - url for next page  <br>
+    - prev_page_url - url for previous page  <br>
     - total - total count of all records <br>
     ",
      * operationId="followersGetAll",
@@ -113,14 +112,13 @@ class FollowerController extends Controller
     There are fields: <br>
     -current_page - current page that requested; <br>
     - data - array with users <br>
-    - first_page_url - url that should be requested to get data of first page (WARNING : this should be POST <br>
-    request with get parameter 'page' !!!! ) <br>
+    - first_page_url - url that should be requested to get data of first page
     - from - from which record we get next part of data <br>
     - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page) <br>
     - per_page - number of records per page ( always will be 20) <br>
     - last_page_url - page that was called before ( this is not previous page) <br>
-    - next_page_url - url for next page ( WARNING: this should be POST request with get parameter 'page'!!!) <br>
-    - prev_page_url - url for previous page (WARNING: this should be POST request with get parameter 'page'!!!) <br>
+    - next_page_url - url for next page  <br>
+    - prev_page_url - url for previous page  <br>
     - total - total count of all records <br>
     ",
      * operationId="followingGetAll",

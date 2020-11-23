@@ -661,7 +661,7 @@
                     "followers"
                 ],
                 "summary": "Get all followers",
-                "description": "Returns pagination object with all followers.\n    There are fields: <br>\n    -current_page - current page that requested; <br>\n    - data - array with users <br>\n    - first_page_url - url that should be requested to get data of first page (WARNING : this should be POST <br>\n    request with get parameter 'page' !!!! ) <br>\n    - from - from which record we get next part of data <br>\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page) <br>\n    - per_page - number of records per page ( always will be 20) <br>\n    - last_page_url - page that was called before ( this is not previous page) <br>\n    - next_page_url - url for next page ( WARNING: this should be POST request with get parameter 'page'!!!) <br>\n    - prev_page_url - url for previous page (WARNING: this should be POST request with get parameter 'page'!!!) <br>\n    - total - total count of all records <br>\n    ",
+                "description": "Returns pagination object with all followers.\n    There are fields: <br>\n    -current_page - current page that requested; <br>\n    - data - array with users <br>\n    - first_page_url - url that should be requested to get data of first page (\n    - from - from which record we get next part of data <br>\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page) <br>\n    - per_page - number of records per page ( always will be 20) <br>\n    - last_page_url - page that was called before ( this is not previous page) <br>\n    - next_page_url - url for next page  <br>\n    - prev_page_url - url for previous page  <br>\n    - total - total count of all records <br>\n    ",
                 "operationId": "followersGetAll",
                 "parameters": [
                     {
@@ -791,7 +791,7 @@
                     "following"
                 ],
                 "summary": "Get all following",
-                "description": "Returns pagination object with all following.\n    There are fields: <br>\n    -current_page - current page that requested; <br>\n    - data - array with users <br>\n    - first_page_url - url that should be requested to get data of first page (WARNING : this should be POST <br>\n    request with get parameter 'page' !!!! ) <br>\n    - from - from which record we get next part of data <br>\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page) <br>\n    - per_page - number of records per page ( always will be 20) <br>\n    - last_page_url - page that was called before ( this is not previous page) <br>\n    - next_page_url - url for next page ( WARNING: this should be POST request with get parameter 'page'!!!) <br>\n    - prev_page_url - url for previous page (WARNING: this should be POST request with get parameter 'page'!!!) <br>\n    - total - total count of all records <br>\n    ",
+                "description": "Returns pagination object with all following.\n    There are fields: <br>\n    -current_page - current page that requested; <br>\n    - data - array with users <br>\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data <br>\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page) <br>\n    - per_page - number of records per page ( always will be 20) <br>\n    - last_page_url - page that was called before ( this is not previous page) <br>\n    - next_page_url - url for next page  <br>\n    - prev_page_url - url for previous page  <br>\n    - total - total count of all records <br>\n    ",
                 "operationId": "followingGetAll",
                 "parameters": [
                     {
@@ -1043,6 +1043,435 @@
                                         "error": {
                                             "type": "string",
                                             "example": "Incorrect user id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users/posts?page={page}": {
+            "get": {
+                "tags": [
+                    "users/posts"
+                ],
+                "summary": "Get all users posts",
+                "description": "\n    There are fields:\n    -current_page - current page that requested;\n    - data - array with users\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)\n    - per_page - number of records per page ( always will be 20)\n    - last_page_url - page that was called before ( this is not previous page)\n    - next_page_url - url for next page\n    - prev_page_url - url for previous page\n    - total - total count of all records\n     ",
+                "operationId": "getUsersPosts",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "user_id": 1,
+                                                    "title": "test",
+                                                    "body": "Post body",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "user_id": 1,
+                                                    "title": "test 2 ",
+                                                    "body": "Post body 2",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                }
+                                            ]
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users/posts": {
+            "post": {
+                "tags": [
+                    "users/posts"
+                ],
+                "summary": "Create new post",
+                "description": "",
+                "operationId": "postUsersPosts",
+                "requestBody": {
+                    "description": "Pass post data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "body"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Title 1"
+                                    },
+                                    "body": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Body 1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "Post successfully added"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "example": "Something went wrong!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users/posts/{id}": {
+            "get": {
+                "tags": [
+                    "users/posts"
+                ],
+                "summary": "Get one post",
+                "description": "",
+                "operationId": "getUsersPost",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "post": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 3,
+                                                    "user_id": 2,
+                                                    "title": "3333",
+                                                    "body": "33333",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "example": "Not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "users/posts"
+                ],
+                "summary": "Update post",
+                "description": "",
+                "operationId": "putUsersPosts",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass post data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "body"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Title 1"
+                                    },
+                                    "body": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Body 1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "example": "Not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "users/posts"
+                ],
+                "summary": "Delete post",
+                "description": "",
+                "operationId": "deleteUsersPosts",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "Successfully deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "example": "Not found"
                                         }
                                     },
                                     "type": "object"

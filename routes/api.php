@@ -29,15 +29,24 @@ Route::group(['namespace'=>'Api'], function ($router) {
                 Route::post('refresh', 'AuthController@refresh');
                 Route::post('me', 'AuthController@me');
 
-                Route::group(['prefix'=>'email'],function (){
-                    Route::post('/send-verification', 'EmailVerificationController@sendEmailVerification');
-                });
             });
+        });
+
+        Route::group(['prefix'=>'email','middleware' => 'auth:api'],function (){
+            Route::post('/send-verification', 'EmailVerificationController@sendEmailVerification');
+            Route::post('/change', 'EmailController@update');
         });
     });
 
     Route::group(['prefix'=>'users','middleware' => 'auth:api'],function (){
         Route::get('/', 'UserController@getAllUsers');
+        Route::group(['prefix'=>'posts'],function (){
+            Route::post('/','PostController@store');
+            Route::get('/','PostController@index');
+            Route::get('/{post}','PostController@show');
+            Route::put('/{post}','PostController@update');
+            Route::delete('/{post}','PostController@destroy');
+        });
     });
 
     Route::group(['prefix'=>'followers','middleware' => 'auth:api'],function (){
