@@ -1216,6 +1216,24 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "title": {
+                                            "type": "object",
+                                            "example": [
+                                                "The title field is required."
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "500": {
                         "description": "Error",
                         "content": {
@@ -1365,6 +1383,24 @@
                                         "success": {
                                             "type": "string",
                                             "example": "Successfully updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "title": {
+                                            "type": "object",
+                                            "example": [
+                                                "The title field is required."
+                                            ]
                                         }
                                     },
                                     "type": "object"
@@ -1569,6 +1605,78 @@
                                         "total": {
                                             "type": "integer",
                                             "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "put": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update user's data",
+                "description": "",
+                "operationId": "putUsers",
+                "requestBody": {
+                    "description": "Pass user data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "name"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "object",
+                                            "example": [
+                                                "The name field is required."
+                                            ]
                                         }
                                     },
                                     "type": "object"

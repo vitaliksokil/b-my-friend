@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -71,5 +73,57 @@ class UserController extends Controller
      */
     public function getAllUsers(){
         return User::where('id', '!=', auth()->id())->paginate(20);
+    }
+
+
+
+
+    /**
+     * @OA\Put(
+     * path="/api/users",
+     * summary="Update user's data",
+     * description="",
+     * operationId="putUsers",
+     * tags={"users"},
+     * security={ {"bearer": {}} },
+     *  @OA\RequestBody(
+     *    required=true,
+     *    description="Pass user data",
+     *    @OA\JsonContent(
+     *       required={"name"},
+     *       @OA\Property(property="name", type="string", format="text", example="name"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="success", type="string", example="Successfully updated")
+     *        )
+     *     ),
+     * @OA\Response(
+     *    response=400,
+     *    description="Error",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="name", type="object", example={
+            "The name field is required."
+            })
+     *     )
+     * )
+     * )
+     */
+    public function update(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return new Response($validator->errors(), 400);
+        }
+        $user = auth()->user();
+        if($user->update($request->all())){
+            return new Response(['success'=>'Successfully updated'], 200);
+        }else{
+            return new Response(['error'=>'Something went wrong'], 500);
+        }
     }
 }
