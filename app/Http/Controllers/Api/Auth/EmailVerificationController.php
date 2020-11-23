@@ -85,12 +85,12 @@ class EmailVerificationController extends Controller
                         'success' => 'Successfully verified'
                 ]);
             }else{
-                return view('emails.messageWithVerified', [
+                return view('emails.email-verification.messageWithVerified', [
                     'error' => 'Something went wrong'
                 ]);
             }
         }else{
-            return view('emails.messageWithVerified', [
+            return view('emails.email-verification.messageWithVerified', [
                 'error' => 'Incorrect token'
             ]);
         }
