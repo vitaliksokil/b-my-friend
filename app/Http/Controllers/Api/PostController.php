@@ -116,7 +116,16 @@ class PostController extends Controller
      *       @OA\Property(property="success", type="string", example="Post successfully added")
      *        )
      *     ),
-     *@OA\Response(
+     * @OA\Response(
+     *    response=400,
+     *    description="Error",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="title", type="object", example={
+            "The title field is required."
+            })
+     *     )
+     * ),
+     * @OA\Response(
      *    response=500,
      *    description="Error",
      *     @OA\JsonContent(
@@ -225,6 +234,16 @@ class PostController extends Controller
      *       @OA\Property(property="success", type="string", example="Successfully updated")
      *        )
      *     ),
+     *
+     * @OA\Response(
+     *    response=400,
+     *    description="Error",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="title", type="object", example={
+            "The title field is required."
+            })
+     *     )
+     * ),
      *@OA\Response(
      *    response=403,
      *    description="Error",
