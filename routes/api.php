@@ -48,6 +48,13 @@ Route::group(['namespace'=>'Api'], function ($router) {
             Route::put('/{post}','PostController@update');
             Route::delete('/{post}','PostController@destroy');
         });
+        Route::group(['prefix'=>'feeds'],function (){
+            Route::post('/','FeedController@store');
+            Route::get('/','FeedController@index');
+            Route::get('/{feed}','FeedController@show');
+            Route::put('/{feed}','FeedController@update');
+            Route::delete('/{feed}','FeedController@destroy');
+        });
     });
 
     Route::group(['prefix'=>'followers','middleware' => 'auth:api'],function (){
