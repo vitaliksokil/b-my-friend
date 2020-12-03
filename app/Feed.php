@@ -16,7 +16,7 @@ class Feed extends Model
     }
 
 
-    public function getImgAttribute($value){
-        return '/uploads/user/'.auth()->user()->id.'/'. $value;
-    }
+//    public function getImgAttribute($value){
+//        return '/uploads/user/'.auth()->user()->id.'/'. $value;
+//    }
 }
