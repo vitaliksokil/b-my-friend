@@ -16,8 +16,9 @@ class FileUploaderService implements FileUploaderServiceInterface
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
         $imageName = Str::random(10).'.'.'png';
-        \File::put($uploadDirectory .'/'. $imageName, base64_decode($image));
-        return $imageName;
+        $fullPath = $uploadDirectory .'/'. $imageName;
+        \File::put($fullPath, base64_decode($image));
+        return $path.'/'.$imageName;
     }
 
     private function createFolderIfNotExist($uploadDirectory){
