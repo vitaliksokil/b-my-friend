@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
 </head>
 <body>
-
+<img src="{{asset('gBe5Ayhsg9.png')}}" alt="">
 @yield('content')
 
 </body>

@@ -17,7 +17,7 @@ class FeedController extends Controller
      * @OA\Post(
      * path="/api/users/feeds",
      * summary="Create new feed",
-     * description="",
+     * description="Img should be in base 64",
      * operationId="postUsersFeeds",
      * tags={"users/feeds"},
      * security={ {"bearer": {}} },
@@ -25,27 +25,11 @@ class FeedController extends Controller
      *  @OA\RequestBody(
      *    required=true,
      *    description="Pass feed data",
-     *      @OA\MediaType(
-     *           mediaType="multipart/form-data",
-     *           @OA\Schema(
-     *               @OA\Property(
-     *                  property="img",
-     *                  type="array",
-     *                  @OA\Items(
-     *                       type="string",
-     *                       format="binary",
-     *                  ),
-     *               ),
-     *              @OA\Property(
-     *                  property="description",
-     *                  type="string",
-     *                  @OA\Items(
-     *                       type="string",
-     *                       format="binary",
-     *                  ),
-     *               ),
-     *           ),
-     *       ),
+     *     @OA\JsonContent(
+     *       required={"description","img"},
+     *       @OA\Property(property="description", type="string", format="text", example="Body 1"),
+     *       @OA\Property(property="img", type="string", format="text", example="base 64 "),
+     *    ),
      * ),
      * @OA\Response(
      *    response=200,

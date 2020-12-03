@@ -661,28 +661,28 @@
                     "users/feeds"
                 ],
                 "summary": "Create new feed",
-                "description": "",
+                "description": "Img should be in base 64",
                 "operationId": "postUsersFeeds",
                 "requestBody": {
                     "description": "Pass feed data",
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
+                                "required": [
+                                    "description",
+                                    "img"
+                                ],
                                 "properties": {
-                                    "img": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
-                                    },
                                     "description": {
                                         "type": "string",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
+                                        "format": "text",
+                                        "example": "Body 1"
+                                    },
+                                    "img": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "base 64 "
                                     }
                                 },
                                 "type": "object"
