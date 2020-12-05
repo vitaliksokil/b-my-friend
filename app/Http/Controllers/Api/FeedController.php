@@ -144,7 +144,7 @@ class FeedController extends Controller
     public function index(){
         $user = auth()->user();
         $feeds = Feed::where('user_id', $user->id)->paginate(20);
-        return response()->json(['feeds'=>$feeds->toArray()],200);
+        return response()->json($feeds->toArray(),200);
     }
 
     /**
