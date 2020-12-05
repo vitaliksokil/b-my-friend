@@ -14,10 +14,10 @@ class Feed extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-
-    public function getImgAttribute($value){
-        return base64_encode($value);
-    }
+//
+//    public function getImgAttribute($value){
+//        return base64_encode($value);
+//    }
 
 //    public function getImgAttribute($value){
 //        return '/uploads/user/'.auth()->user()->id.'/'. $value;
