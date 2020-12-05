@@ -17,7 +17,7 @@ class ChangeImgFieldInFeedsTable extends Migration
         try {
             DB::statement('ALTER TABLE feeds MODIFY img MEDIUMBLOB;');
         }catch (\Exception $exception){
-            DB::statement('ALTER TABLE feeds ALTER img LONG VARBINARY	;');
+            DB::statement('ALTER TABLE feeds ALTER img bytea;');
         }
     }
 
