@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeImgFieldInFeedsTable extends Migration
+class AddImgBlobToFeedsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +14,7 @@ class ChangeImgFieldInFeedsTable extends Migration
     public function up()
     {
         Schema::table('feeds', function (Blueprint $table) {
-            $table->dropColumn('img');
+            $table->binary('img');
         });
     }
 
@@ -27,7 +26,7 @@ class ChangeImgFieldInFeedsTable extends Migration
     public function down()
     {
         Schema::table('feeds', function (Blueprint $table) {
-            $table->string('img');
+            $table->dropColumn('img');
         });
     }
 }
