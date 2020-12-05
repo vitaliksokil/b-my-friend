@@ -15,7 +15,12 @@ class ChangeImgFieldInFeedsTable extends Migration
     public function up()
     {
         Schema::table('feeds', function (Blueprint $table) {
-            DB::statement('ALTER TABLE feeds MODIFY img MEDIUMBLOB;');
+            try {
+                DB::statement('ALTER TABLE feeds MODIFY img MEDIUMBLOB;');
+            }catch (\Exception $exception){
+                DB::statement('ALTER TABLE feeds ALTER img MEDIUMBLOB;');
+            }
+
 
         });
     }
@@ -28,7 +33,12 @@ class ChangeImgFieldInFeedsTable extends Migration
     public function down()
     {
         Schema::table('feeds', function (Blueprint $table) {
-            DB::statement('ALTER TABLE feeds MODIFY img VARCHAR(255);');
+            try {
+                DB::statement('ALTER TABLE feeds MODIFY img MEDIUMBLOB;');
+            }catch (\Exception $exception){
+                DB::statement('ALTER TABLE feeds MODIFY img VARCHAR(255);');
+            }
+
         });
     }
 }
