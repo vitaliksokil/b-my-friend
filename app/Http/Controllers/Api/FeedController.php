@@ -64,8 +64,8 @@ class FeedController extends Controller
         if ($validator->fails()) {
             return new Response($validator->errors(), 400);
         }
-        $fileName = $fileUploaderService->uploadFile('uploads/user/'.auth()->user()->id,$request->img);
-        if(Feed::create(['user_id'=>auth()->user()->id,'img'=>$fileName,'description'=>$request->description])){
+//        $fileName = $fileUploaderService->uploadFile('uploads/user/'.auth()->user()->id,$request->img);
+        if(Feed::create(['user_id'=>auth()->user()->id,'img'=>$request->img,'description'=>$request->description])){
             return new Response(['success'=>'Feed successfully added'], 200);
         }else{
             return new Response(['error'=>'Something went wrong!'], 500);
@@ -111,7 +111,7 @@ class FeedController extends Controller
     {
     "id": 1,
     "user_id": 1,
-    "img": "/uploads/user/1/1606481359.jpg",
+    "img": "base64",
     "description": "dasdasd1444",
     "created_at": "2020-11-23 19:54:26",
     "updated_at": "2020-11-23 19:54:26",
@@ -119,7 +119,7 @@ class FeedController extends Controller
     {
     "id": 2,
     "user_id": 1,
-    "img": "/uploads/user/1/1606481359.jpg",
+    "img": "base64",
     "description": "dasdasd1444",
     "created_at": "2020-11-23 19:54:26",
     "updated_at": "2020-11-23 19:54:26",
