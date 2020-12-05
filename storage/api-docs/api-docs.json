@@ -786,7 +786,7 @@
                                                 {
                                                     "id": 1,
                                                     "user_id": 1,
-                                                    "img": "/uploads/user/1/1606481359.jpg",
+                                                    "img": "base64",
                                                     "description": "dasdasd1444",
                                                     "created_at": "2020-11-23 19:54:26",
                                                     "updated_at": "2020-11-23 19:54:26"
@@ -794,7 +794,7 @@
                                                 {
                                                     "id": 2,
                                                     "user_id": 1,
-                                                    "img": "/uploads/user/1/1606481359.jpg",
+                                                    "img": "base64",
                                                     "description": "dasdasd1444",
                                                     "created_at": "2020-11-23 19:54:26",
                                                     "updated_at": "2020-11-23 19:54:26"
