@@ -14,7 +14,7 @@ class AddImgBlobToFeedsTable extends Migration
     public function up()
     {
         Schema::table('feeds', function (Blueprint $table) {
-            $table->binary('img');
+            $table->mediumText('img');
         });
     }
 
