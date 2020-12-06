@@ -195,9 +195,14 @@ class PostController extends Controller
      *     ),
      * )
      */
-    public function show(Post $post)
+    public function show(int $post)
     {
-        return response()->json(['post'=>$post],200);
+        try {
+            $post = Post::findOrFail($post);
+            return response()->json(['post'=>$post],200);
+        }catch (\Exception $exception){
+            return response()->json(['error'=>'Post not found'],404);
+        }
     }
 
     /**
