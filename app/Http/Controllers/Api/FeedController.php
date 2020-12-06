@@ -170,16 +170,12 @@ class FeedController extends Controller
      *    response=200,
      *    description="Success",
      *     @OA\JsonContent(
-     *       @OA\Property(property="feed", type="object", example={
-    {
-    "id": 1,
-    "user_id": 1,
-    "img": "/uploads/user/1/1606481359.jpg",
-    "description": "dasdasd1444",
-    "created_at": "2020-11-23 19:54:26",
-    "updated_at": "2020-11-23 19:54:26",
-    }
-    })
+     *       @OA\Property(property="id", type="int", example="3"),
+     *      @OA\Property(property="user_id", type="int", example="2"),
+     *      @OA\Property(property="img", type="string", example="base64"),
+     *      @OA\Property(property="description", type="string", example="description"),
+     *      @OA\Property(property="created_at", type="string", example="2020-11-23 19:54:26"),
+     *      @OA\Property(property="updated_at", type="string", example="2020-11-23 19:54:26"),
      *        )
      *     ),
      *   @OA\Response(
@@ -194,7 +190,7 @@ class FeedController extends Controller
     public function show(int $feed){
         try {
             $feed = Feed::findOrFail($feed);
-            return response()->json(['feed'=>$feed],200);
+            return response()->json($feed,200);
         }catch (\Exception $exception){
             return response()->json(['error'=>'Feed not found'],404);
         }

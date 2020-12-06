@@ -984,18 +984,29 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "feed": {
-                                            "type": "object",
-                                            "example": [
-                                                {
-                                                    "id": 1,
-                                                    "user_id": 1,
-                                                    "img": "/uploads/user/1/1606481359.jpg",
-                                                    "description": "dasdasd1444",
-                                                    "created_at": "2020-11-23 19:54:26",
-                                                    "updated_at": "2020-11-23 19:54:26"
-                                                }
-                                            ]
+                                        "id": {
+                                            "type": "int",
+                                            "example": "3"
+                                        },
+                                        "user_id": {
+                                            "type": "int",
+                                            "example": "2"
+                                        },
+                                        "img": {
+                                            "type": "string",
+                                            "example": "base64"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "description"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2020-11-23 19:54:26"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2020-11-23 19:54:26"
                                         }
                                     },
                                     "type": "object"
@@ -1978,18 +1989,29 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "post": {
-                                            "type": "object",
-                                            "example": [
-                                                {
-                                                    "id": 3,
-                                                    "user_id": 2,
-                                                    "title": "3333",
-                                                    "body": "33333",
-                                                    "created_at": "2020-11-23 19:54:26",
-                                                    "updated_at": "2020-11-23 19:54:26"
-                                                }
-                                            ]
+                                        "id": {
+                                            "type": "int",
+                                            "example": "3"
+                                        },
+                                        "user_id": {
+                                            "type": "int",
+                                            "example": "2"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "title"
+                                        },
+                                        "body": {
+                                            "type": "string",
+                                            "example": "body"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2020-11-23 19:54:26"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2020-11-23 19:54:26"
                                         }
                                     },
                                     "type": "object"

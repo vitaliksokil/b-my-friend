@@ -174,17 +174,13 @@ class PostController extends Controller
      *    response=200,
      *    description="Success",
      *     @OA\JsonContent(
-     *       @OA\Property(property="post", type="object", example={
-    {
-          "id":3,
-          "user_id":2,
-          "title":"3333",
-          "body":"33333",
-          "created_at":"2020-11-23 19:54:26",
-          "updated_at":"2020-11-23 19:54:26"
-      }
-        })
-     *        )
+     *      @OA\Property(property="id", type="int", example="3"),
+     *      @OA\Property(property="user_id", type="int", example="2"),
+     *      @OA\Property(property="title", type="string", example="title"),
+     *      @OA\Property(property="body", type="string", example="body"),
+     *      @OA\Property(property="created_at", type="string", example="2020-11-23 19:54:26"),
+     *      @OA\Property(property="updated_at", type="string", example="2020-11-23 19:54:26"),
+     *     ),
      *     ),
      *   @OA\Response(
      *    response=404,
@@ -199,7 +195,7 @@ class PostController extends Controller
     {
         try {
             $post = Post::findOrFail($post);
-            return response()->json(['post'=>$post],200);
+            return response()->json($post,200);
         }catch (\Exception $exception){
             return response()->json(['error'=>'Post not found'],404);
         }
