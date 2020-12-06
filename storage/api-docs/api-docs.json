@@ -1213,6 +1213,138 @@
                 ]
             }
         },
+        "/api/users/feeds/{user_id}?page={page}": {
+            "get": {
+                "tags": [
+                    "users/feeds"
+                ],
+                "summary": "Get feeds of some user",
+                "description": "\n    There are fields:\n    -current_page - current page that requested;\n    - data - array with users\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)\n    - per_page - number of records per page ( always will be 20)\n    - last_page_url - page that was called before ( this is not previous page)\n    - next_page_url - url for next page\n    - prev_page_url - url for previous page\n    - total - total count of all records\n    ",
+                "operationId": "getUserFeeds",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "user_id": 1,
+                                                    "img": "base64",
+                                                    "description": "dasdasd1444",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "user_id": 1,
+                                                    "img": "base64",
+                                                    "description": "dasdasd1444",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                }
+                                            ]
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "This user not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/followers?page={page}": {
             "get": {
                 "tags": [
@@ -2066,6 +2198,138 @@
                                         "error": {
                                             "type": "object",
                                             "example": "Not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users/posts/{user_id}?page={page}": {
+            "get": {
+                "tags": [
+                    "users/posts"
+                ],
+                "summary": "Get posts of some user",
+                "description": "\n    There are fields:\n    -current_page - current page that requested;\n    - data - array with users\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)\n    - per_page - number of records per page ( always will be 20)\n    - last_page_url - page that was called before ( this is not previous page)\n    - next_page_url - url for next page\n    - prev_page_url - url for previous page\n    - total - total count of all records\n    ",
+                "operationId": "getUserPosts",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "user_id": 1,
+                                                    "title": "test",
+                                                    "body": "Post body",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "user_id": 1,
+                                                    "title": "test 2 ",
+                                                    "body": "Post body 2",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                }
+                                            ]
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "This user not found"
                                         }
                                     },
                                     "type": "object"
