@@ -37,6 +37,7 @@ class AuthController extends Controller
     "name":"test",
     "email": "testt@gmail.com",
     "email_verified_at": null,
+    "img": "",
     })
      *        )
      *     ),
@@ -99,7 +100,8 @@ class AuthController extends Controller
     "id": 1,
     "name": "test",
     "email": "testt@gmail.com",
-    "email_verified_at": null
+    "email_verified_at": null,
+    "img": "base64",
      *             }),
      *             @OA\Property(property="token_type", type="string", example="bearer"),
      *          )
@@ -139,7 +141,8 @@ class AuthController extends Controller
                     "id": 1,
                     "name": "test",
                     "email": "testt@gmail.com",
-                    "email_verified_at": null
+                    "email_verified_at": null,
+                    "img": "base64",
      *             }),
      *          )
      *        ),

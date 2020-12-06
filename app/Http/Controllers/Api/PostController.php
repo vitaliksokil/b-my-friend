@@ -25,7 +25,7 @@ class PostController extends Controller
      * description="
     There are fields:
     -current_page - current page that requested;
-    - data - array with users
+    - data - array with user posts
     - first_page_url - url that should be requested to get data of first page
     - from - from which record we get next part of data
     - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)

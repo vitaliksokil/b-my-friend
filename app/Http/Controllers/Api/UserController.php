@@ -52,7 +52,8 @@ class UserController extends Controller
             "name": "Name",
             "email": "test@gmail.com",
             "email_verified_at": "2020-11-11 22:04:31",
-            "email_verification_token": null
+            "email_verification_token": null,
+            "img": "base64",
      *     }
 *     }),
      *      @OA\Property(property="first_page_url", type="string", example="http://b-my-friend.loc/api/users/get-all?page=1"),

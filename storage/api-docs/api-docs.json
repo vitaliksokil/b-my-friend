@@ -59,7 +59,8 @@
                                                 "id": 1,
                                                 "name": "test",
                                                 "email": "testt@gmail.com",
-                                                "email_verified_at": null
+                                                "email_verified_at": null,
+                                                "img": ""
                                             }
                                         }
                                     },
@@ -141,7 +142,8 @@
                                                 "id": 1,
                                                 "name": "test",
                                                 "email": "testt@gmail.com",
-                                                "email_verified_at": null
+                                                "email_verified_at": null,
+                                                "img": "base64"
                                             }
                                         },
                                         "token_type": {
@@ -194,7 +196,8 @@
                                                 "id": 1,
                                                 "name": "test",
                                                 "email": "testt@gmail.com",
-                                                "email_verified_at": null
+                                                "email_verified_at": null,
+                                                "img": "base64"
                                             }
                                         }
                                     },
@@ -1754,7 +1757,7 @@
                     "users/posts"
                 ],
                 "summary": "Get all users posts",
-                "description": "\n    There are fields:\n    -current_page - current page that requested;\n    - data - array with users\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)\n    - per_page - number of records per page ( always will be 20)\n    - last_page_url - page that was called before ( this is not previous page)\n    - next_page_url - url for next page\n    - prev_page_url - url for previous page\n    - total - total count of all records\n     ",
+                "description": "\n    There are fields:\n    -current_page - current page that requested;\n    - data - array with user posts\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)\n    - per_page - number of records per page ( always will be 20)\n    - last_page_url - page that was called before ( this is not previous page)\n    - next_page_url - url for next page\n    - prev_page_url - url for previous page\n    - total - total count of all records\n     ",
                 "operationId": "getUsersPosts",
                 "parameters": [
                     {
@@ -2384,7 +2387,8 @@
                                                     "name": "Name",
                                                     "email": "test@gmail.com",
                                                     "email_verified_at": "2020-11-11 22:04:31",
-                                                    "email_verification_token": null
+                                                    "email_verification_token": null,
+                                                    "img": "base64"
                                                 }
                                             ]
                                         },
