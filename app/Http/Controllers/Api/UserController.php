@@ -126,4 +126,56 @@ class UserController extends Controller
             return new Response(['error'=>'Something went wrong'], 500);
         }
     }
+
+
+
+    /**
+     * @OA\Patch(
+     * path="/api/users/upload-photo",
+     * summary="Upload user photo",
+     * description="",
+     * operationId="uploadUserPhoto",
+     * tags={"users"},
+     * security={ {"bearer": {}} },
+     *  @OA\RequestBody(
+     *
+     *    required=true,
+     *    description="Pass image in base64",
+     *    @OA\JsonContent(
+     *       required={"img"},
+     *       @OA\Property(property="img", type="string", format="text", example="base 64"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="success", type="string", example="Successfully updated")
+     *        )
+     *     ),
+     *
+     * @OA\Response(
+     *    response=422,
+     *    description="Error",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="errors", type="object", example={
+     "img":{"The img field is required."}
+    })
+     *     )
+     * ),
+     * )
+     */
+    public function uploadPhoto(Request $request){
+        $validator = Validator::make($request->all(), [
+            'img' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return new Response(['errors'=>$validator->errors()], 400);
+        }
+        if(auth()->user()->update(['img'=>$request->img])){
+            return new Response(['success'=>'User image successfully added'], 200);
+        }else{
+            return new Response(['error'=>'Something went wrong!'], 500);
+        }
+    }
 }
