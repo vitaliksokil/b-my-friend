@@ -1216,7 +1216,7 @@
                 ]
             }
         },
-        "/api/users/feeds/{user_id}?page={page}": {
+        "/api/users/feeds/of/{user_id}?page={page}": {
             "get": {
                 "tags": [
                     "users/feeds"
@@ -2216,7 +2216,7 @@
                 ]
             }
         },
-        "/api/users/posts/{user_id}?page={page}": {
+        "/api/users/posts/of/{user_id}?page={page}": {
             "get": {
                 "tags": [
                     "users/posts"

@@ -338,7 +338,7 @@ class PostController extends Controller
 
     /**
      * @OA\Get(
-     * path="/api/users/posts/{user_id}?page={page}",
+     * path="/api/users/posts/of/{user_id}?page={page}",
      * summary="Get posts of some user",
      * description="
     There are fields:

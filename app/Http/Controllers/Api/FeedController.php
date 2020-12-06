@@ -191,8 +191,13 @@ class FeedController extends Controller
      *     ),
      * )
      */
-    public function show(Feed $feed){
-        return response()->json(['feed'=>$feed],200);
+    public function show(int $feed){
+        try {
+            $feed = Feed::findOrFail($feed);
+            return response()->json(['feed'=>$feed],200);
+        }catch (\Exception $exception){
+            return response()->json(['error'=>'Feed not found'],404);
+        }
     }
 
 
@@ -335,7 +340,7 @@ class FeedController extends Controller
 
     /**
      * @OA\Get(
-     * path="/api/users/feeds/{user_id}?page={page}",
+     * path="/api/users/feeds/of/{user_id}?page={page}",
      * summary="Get feeds of some user",
      * description="
     There are fields:

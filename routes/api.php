@@ -45,13 +45,13 @@ Route::group(['namespace'=>'Api'], function ($router) {
         Route::group(['prefix'=>'posts'],function (){
             Route::post('/','PostController@store');
             Route::get('/','PostController@index');
-            Route::get('/{user_id}','PostController@getUserPosts');
+            Route::get('/of/{user_id}','PostController@getUserPosts');
             Route::get('/{post}','PostController@show');
             Route::put('/{post}','PostController@update');
             Route::delete('/{post}','PostController@destroy');
         });
         Route::group(['prefix'=>'feeds'],function (){
-            Route::get('/{user_id}','FeedController@getUserFeeds');
+            Route::get('/of/{user_id}','FeedController@getUserFeeds');
             Route::post('/','FeedController@store');
             Route::get('/','FeedController@index');
             Route::get('/{feed}','FeedController@show');
