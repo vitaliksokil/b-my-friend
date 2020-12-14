@@ -59,7 +59,8 @@
                                                 "id": 1,
                                                 "name": "test",
                                                 "email": "testt@gmail.com",
-                                                "email_verified_at": null
+                                                "email_verified_at": null,
+                                                "img": ""
                                             }
                                         }
                                     },
@@ -141,7 +142,8 @@
                                                 "id": 1,
                                                 "name": "test",
                                                 "email": "testt@gmail.com",
-                                                "email_verified_at": null
+                                                "email_verified_at": null,
+                                                "img": "base64"
                                             }
                                         },
                                         "token_type": {
@@ -194,7 +196,8 @@
                                                 "id": 1,
                                                 "name": "test",
                                                 "email": "testt@gmail.com",
-                                                "email_verified_at": null
+                                                "email_verified_at": null,
+                                                "img": "base64"
                                             }
                                         }
                                     },
@@ -261,6 +264,105 @@
                                         "message": {
                                             "type": "object",
                                             "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/email/change ": {
+            "post": {
+                "tags": [
+                    "email"
+                ],
+                "summary": "Change email",
+                "description": "",
+                "operationId": "emailChange",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Email verification was successfully sent on test@gmail.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": "Something went wrong when sending email"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "Incorrect password"
+                                                ],
+                                                "email": [
+                                                    "The email has already been taken."
+                                                ]
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -786,7 +888,7 @@
                                                 {
                                                     "id": 1,
                                                     "user_id": 1,
-                                                    "img": "/uploads/user/1/1606481359.jpg",
+                                                    "img": "base64",
                                                     "description": "dasdasd1444",
                                                     "created_at": "2020-11-23 19:54:26",
                                                     "updated_at": "2020-11-23 19:54:26"
@@ -794,7 +896,7 @@
                                                 {
                                                     "id": 2,
                                                     "user_id": 1,
-                                                    "img": "/uploads/user/1/1606481359.jpg",
+                                                    "img": "base64",
                                                     "description": "dasdasd1444",
                                                     "created_at": "2020-11-23 19:54:26",
                                                     "updated_at": "2020-11-23 19:54:26"
@@ -882,18 +984,29 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "feed": {
-                                            "type": "object",
-                                            "example": [
-                                                {
-                                                    "id": 1,
-                                                    "user_id": 1,
-                                                    "img": "/uploads/user/1/1606481359.jpg",
-                                                    "description": "dasdasd1444",
-                                                    "created_at": "2020-11-23 19:54:26",
-                                                    "updated_at": "2020-11-23 19:54:26"
-                                                }
-                                            ]
+                                        "id": {
+                                            "type": "int",
+                                            "example": "3"
+                                        },
+                                        "user_id": {
+                                            "type": "int",
+                                            "example": "2"
+                                        },
+                                        "img": {
+                                            "type": "string",
+                                            "example": "base64"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "description"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2020-11-23 19:54:26"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2020-11-23 19:54:26"
                                         }
                                     },
                                     "type": "object"
@@ -1099,6 +1212,138 @@
                                         "error": {
                                             "type": "object",
                                             "example": "Not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users/feeds/of/{user_id}?page={page}": {
+            "get": {
+                "tags": [
+                    "users/feeds"
+                ],
+                "summary": "Get feeds of some user",
+                "description": "\n    There are fields:\n    -current_page - current page that requested;\n    - data - array with users\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)\n    - per_page - number of records per page ( always will be 20)\n    - last_page_url - page that was called before ( this is not previous page)\n    - next_page_url - url for next page\n    - prev_page_url - url for previous page\n    - total - total count of all records\n    ",
+                "operationId": "getUserFeeds",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "user_id": 1,
+                                                    "img": "base64",
+                                                    "description": "dasdasd1444",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "user_id": 1,
+                                                    "img": "base64",
+                                                    "description": "dasdasd1444",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                }
+                                            ]
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "This user not found"
                                         }
                                     },
                                     "type": "object"
@@ -1523,7 +1768,7 @@
                     "users/posts"
                 ],
                 "summary": "Get all users posts",
-                "description": "\n    There are fields:\n    -current_page - current page that requested;\n    - data - array with users\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)\n    - per_page - number of records per page ( always will be 20)\n    - last_page_url - page that was called before ( this is not previous page)\n    - next_page_url - url for next page\n    - prev_page_url - url for previous page\n    - total - total count of all records\n     ",
+                "description": "\n    There are fields:\n    -current_page - current page that requested;\n    - data - array with user posts\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)\n    - per_page - number of records per page ( always will be 20)\n    - last_page_url - page that was called before ( this is not previous page)\n    - next_page_url - url for next page\n    - prev_page_url - url for previous page\n    - total - total count of all records\n     ",
                 "operationId": "getUsersPosts",
                 "parameters": [
                     {
@@ -1744,18 +1989,29 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "post": {
-                                            "type": "object",
-                                            "example": [
-                                                {
-                                                    "id": 3,
-                                                    "user_id": 2,
-                                                    "title": "3333",
-                                                    "body": "33333",
-                                                    "created_at": "2020-11-23 19:54:26",
-                                                    "updated_at": "2020-11-23 19:54:26"
-                                                }
-                                            ]
+                                        "id": {
+                                            "type": "int",
+                                            "example": "3"
+                                        },
+                                        "user_id": {
+                                            "type": "int",
+                                            "example": "2"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "title"
+                                        },
+                                        "body": {
+                                            "type": "string",
+                                            "example": "body"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2020-11-23 19:54:26"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2020-11-23 19:54:26"
                                         }
                                     },
                                     "type": "object"
@@ -1982,6 +2238,138 @@
                 ]
             }
         },
+        "/api/users/posts/of/{user_id}?page={page}": {
+            "get": {
+                "tags": [
+                    "users/posts"
+                ],
+                "summary": "Get posts of some user",
+                "description": "\n    There are fields:\n    -current_page - current page that requested;\n    - data - array with users\n    - first_page_url - url that should be requested to get data of first page\n    - from - from which record we get next part of data\n    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)\n    - per_page - number of records per page ( always will be 20)\n    - last_page_url - page that was called before ( this is not previous page)\n    - next_page_url - url for next page\n    - prev_page_url - url for previous page\n    - total - total count of all records\n    ",
+                "operationId": "getUserPosts",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "user_id": 1,
+                                                    "title": "test",
+                                                    "body": "Post body",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "user_id": 1,
+                                                    "title": "test 2 ",
+                                                    "body": "Post body 2",
+                                                    "created_at": "2020-11-23 19:54:26",
+                                                    "updated_at": "2020-11-23 19:54:26"
+                                                }
+                                            ]
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "http://b-my-friend.loc/api/followers/get-all?page=2"
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 20
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "This user not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/users?page={page}": {
             "get": {
                 "tags": [
@@ -2021,7 +2409,8 @@
                                                     "name": "Name",
                                                     "email": "test@gmail.com",
                                                     "email_verified_at": "2020-11-11 22:04:31",
-                                                    "email_verification_token": null
+                                                    "email_verification_token": null,
+                                                    "img": "base64"
                                                 }
                                             ]
                                         },
@@ -2136,6 +2525,80 @@
                                             "example": [
                                                 "The name field is required."
                                             ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users/upload-photo": {
+            "patch": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Upload user photo",
+                "description": "",
+                "operationId": "uploadUserPhoto",
+                "requestBody": {
+                    "description": "Pass image in base64",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "img"
+                                ],
+                                "properties": {
+                                    "img": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "base 64"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "img": [
+                                                    "The img field is required."
+                                                ]
+                                            }
                                         }
                                     },
                                     "type": "object"

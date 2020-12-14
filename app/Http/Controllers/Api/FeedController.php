@@ -6,6 +6,7 @@ use App\Feed;
 use App\Http\Controllers\Controller;
 
 use App\Services\FileUploaderService\FileUploaderServiceInterface;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -64,8 +65,8 @@ class FeedController extends Controller
         if ($validator->fails()) {
             return new Response($validator->errors(), 400);
         }
-        $fileName = $fileUploaderService->uploadFile('uploads/user/'.auth()->user()->id,$request->img);
-        if(Feed::create(['user_id'=>auth()->user()->id,'img'=>$fileName,'description'=>$request->description])){
+//        $fileName = $fileUploaderService->uploadFile('uploads/user/'.auth()->user()->id,$request->img);
+        if(Feed::create(['user_id'=>auth()->user()->id,'img'=>$request->img,'description'=>$request->description])){
             return new Response(['success'=>'Feed successfully added'], 200);
         }else{
             return new Response(['error'=>'Something went wrong!'], 500);
@@ -111,7 +112,7 @@ class FeedController extends Controller
     {
     "id": 1,
     "user_id": 1,
-    "img": "/uploads/user/1/1606481359.jpg",
+    "img": "base64",
     "description": "dasdasd1444",
     "created_at": "2020-11-23 19:54:26",
     "updated_at": "2020-11-23 19:54:26",
@@ -119,7 +120,7 @@ class FeedController extends Controller
     {
     "id": 2,
     "user_id": 1,
-    "img": "/uploads/user/1/1606481359.jpg",
+    "img": "base64",
     "description": "dasdasd1444",
     "created_at": "2020-11-23 19:54:26",
     "updated_at": "2020-11-23 19:54:26",
@@ -144,7 +145,7 @@ class FeedController extends Controller
     public function index(){
         $user = auth()->user();
         $feeds = Feed::where('user_id', $user->id)->paginate(20);
-        return response()->json(['feeds'=>$feeds->toArray()],200);
+        return response()->json($feeds->toArray(),200);
     }
 
     /**
@@ -169,16 +170,12 @@ class FeedController extends Controller
      *    response=200,
      *    description="Success",
      *     @OA\JsonContent(
-     *       @OA\Property(property="feed", type="object", example={
-    {
-    "id": 1,
-    "user_id": 1,
-    "img": "/uploads/user/1/1606481359.jpg",
-    "description": "dasdasd1444",
-    "created_at": "2020-11-23 19:54:26",
-    "updated_at": "2020-11-23 19:54:26",
-    }
-    })
+     *       @OA\Property(property="id", type="int", example="3"),
+     *      @OA\Property(property="user_id", type="int", example="2"),
+     *      @OA\Property(property="img", type="string", example="base64"),
+     *      @OA\Property(property="description", type="string", example="description"),
+     *      @OA\Property(property="created_at", type="string", example="2020-11-23 19:54:26"),
+     *      @OA\Property(property="updated_at", type="string", example="2020-11-23 19:54:26"),
      *        )
      *     ),
      *   @OA\Response(
@@ -190,8 +187,13 @@ class FeedController extends Controller
      *     ),
      * )
      */
-    public function show(Feed $feed){
-        return response()->json(['feed'=>$feed],200);
+    public function show(int $feed){
+        try {
+            $feed = Feed::findOrFail($feed);
+            return response()->json($feed,200);
+        }catch (\Exception $exception){
+            return response()->json(['error'=>'Feed not found'],404);
+        }
     }
 
 
@@ -327,6 +329,101 @@ class FeedController extends Controller
             return new Response(['success'=>'Feed successfully deleted'], 200);
         }else{
             return new Response(['error'=>'This action is unauthorized'], 403);
+        }
+    }
+
+
+
+    /**
+     * @OA\Get(
+     * path="/api/users/feeds/of/{user_id}?page={page}",
+     * summary="Get feeds of some user",
+     * description="
+    There are fields:
+    -current_page - current page that requested;
+    - data - array with users
+    - first_page_url - url that should be requested to get data of first page
+    - from - from which record we get next part of data
+    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)
+    - per_page - number of records per page ( always will be 20)
+    - last_page_url - page that was called before ( this is not previous page)
+    - next_page_url - url for next page
+    - prev_page_url - url for previous page
+    - total - total count of all records
+    ",
+     * operationId="getUserFeeds",
+     * tags={"users/feeds"},
+     * security={ {"bearer": {}} },
+     * @OA\Parameter(
+     *          name="page",
+     *          in="path",
+     *          description="Number of page",
+     *          example=1,
+     *        @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *          name="user_id",
+     *          in="path",
+     *          description="User id",
+     *          example=1,
+     *        @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *      )
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="current_page", type="integer", example=1),
+     *       @OA\Property(property="data", type="object", example={
+    {
+    "id": 1,
+    "user_id": 1,
+    "img": "base64",
+    "description": "dasdasd1444",
+    "created_at": "2020-11-23 19:54:26",
+    "updated_at": "2020-11-23 19:54:26",
+    },
+    {
+    "id": 2,
+    "user_id": 1,
+    "img": "base64",
+    "description": "dasdasd1444",
+    "created_at": "2020-11-23 19:54:26",
+    "updated_at": "2020-11-23 19:54:26",
+    },
+     *     }),
+     *      @OA\Property(property="first_page_url", type="string", example="http://b-my-friend.loc/api/followers/get-all?page=1"),
+     *      @OA\Property(property="from", type="integer", example=1),
+     *      @OA\Property(property="last_page", type="integer", example=2),
+     *      @OA\Property(property="last_page_url", type="string", example="http://b-my-friend.loc/api/followers/get-all?page=2"),
+     *      @OA\Property(property="next_page_url", type="string", example="http://b-my-friend.loc/api/followers/get-all?page=2"),
+     *      @OA\Property(property="path", type="string", example="http://b-my-friend.loc/api/followers/get-all"),
+     *      @OA\Property(property="per_page", type="integer", example=20),
+     *      @OA\Property(property="prev_page_url", type="string", example="http://b-my-friend.loc/api/followers/get-all?page=2"),
+     *      @OA\Property(property="to", type="integer", example=20),
+     *      @OA\Property(property="total", type="integer", example=22),
+     *        )
+     *     ),
+     * @OA\Response(
+     *    response=404,
+     *    description="Not Found",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="error", type="string", example="This user not found")
+     *     )
+     * )
+     * )
+     */
+    public function getUserFeeds(int $user_id){
+        try {
+            $user = User::findOrFail($user_id);
+            return response()->json($user->feeds()->paginate(20),200);
+        }catch (\Exception $exception){
+            return response()->json(['error' => 'This user not found'],404);
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -24,7 +25,7 @@ class PostController extends Controller
      * description="
     There are fields:
     -current_page - current page that requested;
-    - data - array with users
+    - data - array with user posts
     - first_page_url - url that should be requested to get data of first page
     - from - from which record we get next part of data
     - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)
@@ -173,17 +174,13 @@ class PostController extends Controller
      *    response=200,
      *    description="Success",
      *     @OA\JsonContent(
-     *       @OA\Property(property="post", type="object", example={
-    {
-          "id":3,
-          "user_id":2,
-          "title":"3333",
-          "body":"33333",
-          "created_at":"2020-11-23 19:54:26",
-          "updated_at":"2020-11-23 19:54:26"
-      }
-        })
-     *        )
+     *      @OA\Property(property="id", type="int", example="3"),
+     *      @OA\Property(property="user_id", type="int", example="2"),
+     *      @OA\Property(property="title", type="string", example="title"),
+     *      @OA\Property(property="body", type="string", example="body"),
+     *      @OA\Property(property="created_at", type="string", example="2020-11-23 19:54:26"),
+     *      @OA\Property(property="updated_at", type="string", example="2020-11-23 19:54:26"),
+     *     ),
      *     ),
      *   @OA\Response(
      *    response=404,
@@ -194,9 +191,14 @@ class PostController extends Controller
      *     ),
      * )
      */
-    public function show(Post $post)
+    public function show(int $post)
     {
-        return response()->json(['post'=>$post],200);
+        try {
+            $post = Post::findOrFail($post);
+            return response()->json($post,200);
+        }catch (\Exception $exception){
+            return response()->json(['error'=>'Post not found'],404);
+        }
     }
 
     /**
@@ -330,6 +332,101 @@ class PostController extends Controller
             }
         }else{
             return new Response(['error'=>'Forbidden'], 403);
+        }
+    }
+
+
+
+    /**
+     * @OA\Get(
+     * path="/api/users/posts/of/{user_id}?page={page}",
+     * summary="Get posts of some user",
+     * description="
+    There are fields:
+    -current_page - current page that requested;
+    - data - array with users
+    - first_page_url - url that should be requested to get data of first page
+    - from - from which record we get next part of data
+    - to  - to which record we will fetch data ( for example from:1, to: 20 - this is 1 page)
+    - per_page - number of records per page ( always will be 20)
+    - last_page_url - page that was called before ( this is not previous page)
+    - next_page_url - url for next page
+    - prev_page_url - url for previous page
+    - total - total count of all records
+    ",
+     * operationId="getUserPosts",
+     * tags={"users/posts"},
+     * security={ {"bearer": {}} },
+     * @OA\Parameter(
+     *          name="page",
+     *          in="path",
+     *          description="Number of page",
+     *          example=1,
+     *        @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *          name="user_id",
+     *          in="path",
+     *          description="User id",
+     *          example=1,
+     *        @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *      )
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="current_page", type="integer", example=1),
+     *       @OA\Property(property="data", type="object", example={
+    {
+    "id": 1,
+    "user_id": 1,
+    "title":"test",
+    "body": "Post body",
+    "created_at": "2020-11-23 19:54:26",
+    "updated_at": "2020-11-23 19:54:26",
+    },
+    {
+    "id": 2,
+    "user_id": 1,
+    "title":"test 2 ",
+    "body": "Post body 2",
+    "created_at": "2020-11-23 19:54:26",
+    "updated_at": "2020-11-23 19:54:26",
+    },
+     *     }),
+     *      @OA\Property(property="first_page_url", type="string", example="http://b-my-friend.loc/api/followers/get-all?page=1"),
+     *      @OA\Property(property="from", type="integer", example=1),
+     *      @OA\Property(property="last_page", type="integer", example=2),
+     *      @OA\Property(property="last_page_url", type="string", example="http://b-my-friend.loc/api/followers/get-all?page=2"),
+     *      @OA\Property(property="next_page_url", type="string", example="http://b-my-friend.loc/api/followers/get-all?page=2"),
+     *      @OA\Property(property="path", type="string", example="http://b-my-friend.loc/api/followers/get-all"),
+     *      @OA\Property(property="per_page", type="integer", example=20),
+     *      @OA\Property(property="prev_page_url", type="string", example="http://b-my-friend.loc/api/followers/get-all?page=2"),
+     *      @OA\Property(property="to", type="integer", example=20),
+     *      @OA\Property(property="total", type="integer", example=22),
+     *        )
+     *     ),
+     * @OA\Response(
+     *    response=404,
+     *    description="Not Found",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="error", type="string", example="This user not found")
+     *     )
+     * )
+     * )
+     */
+    public function getUserPosts(int $user_id){
+        try {
+            $user = User::findOrFail($user_id);
+            return response()->json($user->posts()->paginate(20),200);
+        }catch (\Exception $exception){
+            return response()->json(['error' => 'This user not found'],404);
         }
     }
 }

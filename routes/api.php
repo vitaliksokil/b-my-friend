@@ -41,14 +41,17 @@ Route::group(['namespace'=>'Api'], function ($router) {
     Route::group(['prefix'=>'users','middleware' => 'auth:api'],function (){
         Route::get('/', 'UserController@getAllUsers');
         Route::put('/', 'UserController@update');
+        Route::patch('/upload-photo', 'UserController@uploadPhoto');
         Route::group(['prefix'=>'posts'],function (){
             Route::post('/','PostController@store');
             Route::get('/','PostController@index');
+            Route::get('/of/{user_id}','PostController@getUserPosts');
             Route::get('/{post}','PostController@show');
             Route::put('/{post}','PostController@update');
             Route::delete('/{post}','PostController@destroy');
         });
         Route::group(['prefix'=>'feeds'],function (){
+            Route::get('/of/{user_id}','FeedController@getUserFeeds');
             Route::post('/','FeedController@store');
             Route::get('/','FeedController@index');
             Route::get('/{feed}','FeedController@show');
