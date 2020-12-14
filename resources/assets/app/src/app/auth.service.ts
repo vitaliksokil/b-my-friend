@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
+// User interface
+export interface User {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {
+
+  constructor(private http: HttpClient) { }
+
+  // User registration
+  register(user: User): Observable<any> {
+    return this.http.post('api/auth/register', user);
   }
 
-  login(email: string, password: string) {
-    this.http.post('api/auth/login', {email: email, password: password})
-      .subscribe((resp: any) => {
-        this.router.navigate(['profile']);
-
-        localStorage.setItem('auth_token', resp.access_toke);
-      });
+  // Login
+  login(user: User): Observable<any> {
+    return this.http.post<any>('api/auth/login', user);
   }
 
-  logout() {
-    localStorage.removeItem('token');
-  }
-
-  public logIn() {
-    return (localStorage.getItem('token') !== null);
+  // Access user profile
+  profileUser(): Observable<any> {
+    return this.http.post('api/auth/me', {});
   }
 }
