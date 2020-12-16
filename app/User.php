@@ -94,5 +94,8 @@ class User extends Authenticatable implements JWTSubject
     public function feeds(){
         return $this->hasMany(Feed::class);
     }
+    public function groups(){
+        return $this->hasMany(Group::class,'owner_id');
+    }
 
 }

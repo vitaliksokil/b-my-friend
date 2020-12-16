@@ -71,5 +71,13 @@ Route::group(['namespace'=>'Api'], function ($router) {
         Route::delete('/{user_id}', 'FollowerController@unFollow');
     });
 
+    Route::group(['prefix'=>'groups','middleware' => 'auth:api'],function (){
+        Route::get('/of/{user_id}','GroupController@getUserGroups');
+        Route::post('/','GroupController@store');
+        Route::get('/','GroupController@index');
+        Route::get('/{group_id}','GroupController@show');
+        Route::put('/{group_id}','GroupController@update');
+        Route::delete('/{group_id}','GroupController@destroy');
+    });
 });
 
