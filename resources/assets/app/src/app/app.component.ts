@@ -31,5 +31,4 @@ export class AppComponent implements OnInit {
     this.token.removeToken();
     this.router.navigate(['login']);
   }
-
 }

@@ -50,4 +50,7 @@ export class SigninComponent implements OnInit {
     this.token.handleData(data.access_token);
   }
 
+  goToForgotPassword() {
+    this.router.navigate(['forgot-password'])
+  }
 }
