@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import { TokenService } from "../../token.service";
+import { TokenService } from "../../auth/services/token.service";
 import {catchError} from "rxjs/operators";
-import {AuthStateService} from "../../auth-state.service";
+import {AuthStateService} from "../../auth/services/auth-state.service";
 import {Router} from "@angular/router";
 
 @Injectable()

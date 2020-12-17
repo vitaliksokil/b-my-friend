@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SigninComponent } from './auth/signin/signin.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { ProfileComponent } from './auth/profile/profile.component';
+import { SigninComponent } from './auth/pages/signin/signin.component';
+import { SignupComponent } from './auth/pages/signup/signup.component';
+import { ProfileComponent } from './user/pages/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { TokenService } from '../../token.service';
-import { AuthStateService } from '../../auth-state.service';
+import { TokenService } from '../../services/token.service';
+import { AuthStateService } from '../../services/auth-state.service';
 
 @Component({
   selector: 'app-signin',
