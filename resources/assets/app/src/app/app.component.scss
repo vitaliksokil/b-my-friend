@@ -1,1 +1,27 @@
 
+.navbar-brand, .nav-link, .footer {
+	font-family: Roboto;
+	color: #9a9a9a;
+}
+.navbar-brand {
+	font-size: 20pt;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+	color: #fff;
+}
+.footer li {
+	 list-style-type: none;
+}
+.text-muted {
+	display: inline-block;
+}
+
+@media screen and (max-width: 990px) {
+	.navbar .navbar-nav {
+		display: none;
+	}
+	.navbar .container {
+		justify-content: center;
+	}
+}

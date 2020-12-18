@@ -1,30 +1,19 @@
-<div class="auth-wrapper">
-  <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <h3 class="h3 mb-3 font-weight-normal text-center">Sign in</h3>
 
-    <!-- Errors -->
-    <div *ngIf="errors?.email" class="alert alert-danger mt-3">
-      {{ errors?.email }}
-    </div>
-    <div *ngIf="errors?.password" class="alert alert-danger mt-3">
-      {{ errors?.password }}
-    </div>
-    <div *ngIf="errors?.error" class="alert alert-danger mt-3">
-      {{ errors?.error }}
-    </div>
+	<section class="log-reg">
+		
+		<div class="login-page">
+			<div class="form">
+				<form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+					<input type="email" placeholder="Your email" formControlName="email"/>
+					<input type="password" placeholder="Youre password" formControlName="password"/>
+					<button type="submit" class="btn btn-block btn-primary">Log in</button>
+          <p *ngIf="errors?.email" class="error">{{ errors?.email }}</p>
+          <p *ngIf="errors?.password" class="error">{{ errors?.password }}</p>
+          <p *ngIf="errors?.error" class="error">{{ errors?.error }}</p>
+					<p class="message">Dont have an account? <a href="/register">Register</a></p>
+					<p class="message">Forgot password? <a href="/forgot-password">Change password</a></p>
+				</form>
+			</div>
+		</div>
 
-    <!-- Login -->
-    <div class="form-group">
-      <label>Email address</label>
-      <input type="email" class="form-control" formControlName="email">
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" class="form-control" formControlName="password">
-    </div>
-    <div *ngIf="errors">
-      <a (click)="goToForgotPassword()">Forgot password</a>
-    </div>
-    <button type="submit" class="btn btn-block btn-primary">Log in</button>
-  </form>
-</div>
+	</section>
