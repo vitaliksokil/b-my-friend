@@ -1,13 +1,16 @@
-
-.navbar-brand, .nav-link, .footer {
+.navbar-brand,
+.nav-link,
+.footer {
 	font-family: Roboto;
 	color: #9a9a9a;
+  cursor: pointer;
 }
 .navbar-brand {
 	font-size: 20pt;
 }
 
-.navbar-brand:hover, .nav-link:hover {
+.navbar-brand:hover,
+.nav-link:hover {
 	color: #fff;
 }
 .footer li {
@@ -21,7 +24,8 @@
 	.navbar .navbar-nav {
 		display: none;
 	}
-	.navbar .container {
+
+  .navbar .container {
 		justify-content: center;
 	}
 }

@@ -1,13 +1,12 @@
 <section class="log-reg">
-		
+
   <div class="login-page">
     <div class="form">
-      <span class="form-title">Registration</span>
+      <h3 class="form-title">Registration</h3>
       <form class="login-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <input type="text" placeholder="Your username" formControlName="name"/>
         <input type="password" placeholder="Youre password" formControlName="password"/>
         <!-- add logic to compare passwords, after dont forget to handle error if passwords is not equals -->
-        <!-- <input type="password" placeholder="Repeat password"/> -->
         <input type="email" placeholder="Your email" formControlName="email"/>
         <p *ngIf="errors?.name" class="error">{{ errors?.name }}</p>
         <p *ngIf="errors?.email" class="error">{{ errors?.email }}</p>
