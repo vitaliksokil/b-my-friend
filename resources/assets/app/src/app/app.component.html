@@ -3,7 +3,7 @@
     <div class="container">
       <a class="navbar-brand" href="#">BMyFriend</a>
       <!-- If logined show this list -->
-      <ul class="navbar-nav list-group-horizontal">
+      <ul *ngIf="isSignedIn" class="navbar-nav list-group-horizontal">
         <li class="nav-item active">
           <a class="nav-link" href="#">My chats <span class="sr-only">(current)</span></a>
         </li>
