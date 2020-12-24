@@ -83,6 +83,8 @@ That's all!!! Now you have our api localy on your machine.
 
 To check docs go to route: http://your-local-host.loc/api/documentation
 
+# ER diagram
+![ER diagram](http://pixs.ru/images/2020/12/24/Screenshot-from-2020-12-24-22-06-10.md.png)
 
 # Architecture diagram
 ![Architecture diagram](http://pixs.ru/images/2020/11/27/arch-Diagram-1.jpg)
