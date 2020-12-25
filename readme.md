@@ -6,6 +6,7 @@
 3. MySQL(MariaDB) 10.3
 4. PHP 7.4
 5. Web Server(Apache/Nginx)
+6. NodeJS
 
 ### Step 1 
 
