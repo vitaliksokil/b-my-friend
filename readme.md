@@ -70,13 +70,7 @@ First command will generate unique key for Laravel app, next one will run migrat
 
 ### Step 1 
 
-Download this repository to your local machine by command:
-
-``` git clone https://github.com/vitaliksokil/b-my-friend.git ```
-
-And then fetch dev branch and checkout to it ( all development is there )
-
-
+Go into ``` resources/assets/app ```
 
 ### Additional information
 
