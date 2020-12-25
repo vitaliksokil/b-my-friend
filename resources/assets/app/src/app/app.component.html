@@ -11,7 +11,7 @@
           <a class="nav-link" href="#">My groups</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/profile">Account</a>
+          <a class="nav-link" routerLink="profile">Account</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Settings</a>
@@ -20,10 +20,10 @@
         <!-- if not logined show this list -->
         <ul class="navbar-nav list-group-horizontal">
           <li *ngIf="!isSignedIn" class="nav-item">
-            <a class="nav-link" routerLink="/login">Log in</a>
+            <a class="nav-link" routerLink="login">Log in</a>
           </li>
           <li *ngIf="!isSignedIn" class="nav-item">
-            <a class="nav-link" routerLink="/register">Register</a>
+            <a class="nav-link" routerLink="register">Register</a>
           </li>
           <li *ngIf="isSignedIn" class="nav-item">
             <a class="nav-link" (click)="signOut()">Log out</a>
