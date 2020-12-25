@@ -66,6 +66,7 @@ php artisan migrate
 
 First command will generate unique key for Laravel app, next one will run migration to create tables in your database
 
+### For Angular
 
 ### Additional information
 
