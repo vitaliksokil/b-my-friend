@@ -74,6 +74,8 @@ Go into ``` resources/assets/app ``` use
 ``` 
 cd resources/assets/app 
 ```
+### Step 2
+Run ``` npm install or yarn install ```
 
 ### Additional information
 
