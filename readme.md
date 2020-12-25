@@ -77,6 +77,9 @@ cd resources/assets/app
 ### Step 2
 Run ``` npm install or yarn install ```
 
+### Step 3
+Run ``` ng serve ```
+
 ### Additional information
 
 Of course you should configurate your web server for current project. The enterpoint is folder called public/ .
