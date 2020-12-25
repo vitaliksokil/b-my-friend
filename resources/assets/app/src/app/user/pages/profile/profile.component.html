@@ -3,10 +3,32 @@
     <div class="card-header">
       User Profile
     </div>
-    <div class="card-body">
-      <p class="card-text">Name: <strong>{{ userProfile?.name}}</strong></p>
-      <p class="card-text">Email: <strong>{{ userProfile?.email}}</strong></p>
-      <img src="" alt="">
+    <div class="card-body d-flex flex-row">
+      <ngx-skeleton-loader
+        *ngIf="!avatar"
+        [theme]="{
+          height:'346px', width: '346px'
+        }"
+      ></ngx-skeleton-loader>
+      <div class="body-avatar" *ngIf="avatar">
+        <img [src]="avatar" alt="">
+      </div>
+      <div class="body-info ml-2" *ngIf="profileLoaded">
+        <p class="card-text">Name: <strong>{{ userProfile?.name}}</strong></p>
+        <p class="card-text">Email: <strong>{{ userProfile?.email }}</strong></p>
+      </div>
+      <div class="ml-2 d-flex flex-column" *ngIf="!profileLoaded">
+        <ngx-skeleton-loader
+          [theme]="{
+          height:'24px', width: '200px'
+        }"
+        ></ngx-skeleton-loader>
+        <ngx-skeleton-loader
+          [theme]="{
+          height:'24px', width: '200px'
+        }"
+        ></ngx-skeleton-loader>
+      </div>
     </div>
   </div>
 </div>

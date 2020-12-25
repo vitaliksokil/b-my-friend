@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from './core/core.module';
 import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { UserModule } from "./user/user.module";
     AuthModule,
     AppRoutingModule,
     UserModule,
+    NgxSkeletonLoaderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
