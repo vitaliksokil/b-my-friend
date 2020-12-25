@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
+header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Authorization, Origin');
+header('Access-Control-Allow-Methods:  POST, PUT');
+
+
 Route::group(['namespace'=>'Api'], function ($router) {
 
     Route::group(['namespace'=>'Auth'], function ($router) {
