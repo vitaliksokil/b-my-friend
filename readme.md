@@ -71,6 +71,7 @@ First command will generate unique key for Laravel app, next one will run migrat
 ### Step 1 
 
 Go into ``` resources/assets/app ```
+``` cd resources/assets/app ```
 
 ### Additional information
 
